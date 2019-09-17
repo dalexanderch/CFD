@@ -14,7 +14,7 @@ from keras import backend as K
 #################### Parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
-print(K.tensorflow_backend._get_available_gpus()) # Check gpu
+K.tensorflow_backend._get_available_gpus() # check gpu
 
 
 #################### Load data
