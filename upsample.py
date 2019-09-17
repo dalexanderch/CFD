@@ -15,9 +15,9 @@ from keras import backend as K
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
 if tf.test.gpu_device_name():
-print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+	print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
 else:
-   print("Please install GPU version of TF")
+	print("Please install GPU version of TF")
 
 
 #################### Load data
