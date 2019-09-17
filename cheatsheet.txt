@@ -1,0 +1,2 @@
+convert image.jpg image.png // convert one image
+mogrify -format jpg *.gif // convert all
