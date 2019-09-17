@@ -14,7 +14,10 @@ from keras import backend as K
 #################### Parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+if tf.test.gpu_device_name():
+print('Default GPU Device: {}'.format(tf.test.gpu_device_name()))
+else:
+   print("Please install GPU version of TF")
 
 
 #################### Load data
