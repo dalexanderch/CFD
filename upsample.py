@@ -14,14 +14,13 @@ from keras import backend as K
 #################### Parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
-K.tensorflow_backend._get_available_gpus() # check gpu
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
 
 
 #################### Load data
 def load_data( path ): # path with respect to current directy
 	cur_dir = os.getcwd()
 	path = cur_dir + path
-	print(path)
 	images = sorted(os.listdir(path)) 
 
 	data = []
