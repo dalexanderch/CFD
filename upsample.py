@@ -8,11 +8,14 @@ from PIL import Image
 import os
 from sklearn.model_selection import train_test_split
 import sys
+from keras import backend as K
 
 
 #################### Parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
+print(K.tensorflow_backend._get_available_gpus()) # Check gpu
+
 
 #################### Load data
 def load_data( path ): # path with respect to current directy
