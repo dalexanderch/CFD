@@ -208,7 +208,8 @@ int main(int argc, char* argv[]) {
     int ly = atoi(argv[4]);
     plbInit(&argc, &argv);
 
-    global::directories().setOutputDir("./tmp/");
+    string dir = "./pred/";
+    global::directories().setOutputDir(dir);
 
     IncomprFlowParam<T> parameters(
             (T) 1e-2,  // uMax
@@ -217,7 +218,7 @@ int main(int argc, char* argv[]) {
             lx,        // lx
             ly         // ly
     );
-    const T logT     = (T)0.04; // time interval
+    // const T logT     = (T)0.04; // time interval
     const T imSave   = (T)0.06;
     // const T vtkSave  = (T)1.;
     const T maxT     = (T)2; // time

@@ -25,7 +25,7 @@ lx = int(sys.argv[6])
 ly = int(sys.argv[7])
 
 # Generate random Reynolds number (sample from normal distribution with mean Re)
-mu, sigma = Re, 20       # mean and standard deviation
+mu, sigma = Re, Variance       # mean and standard deviation
 samples = np.random.normal(mu, sigma, numBatches)
 
 

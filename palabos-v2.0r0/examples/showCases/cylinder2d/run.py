@@ -1,8 +1,13 @@
 import subprocess
-args = ("./cylinder2d", "100", "600", "2", "1")
-#Or just:
-#args = "bin/bar -c somefile.xml -d text.txt -r aString -f anotherString".split()
+import sys
+
+# Parameters
+N = sys.argv[1]
+Re = sys.argv[2]
+lx = sys.argv[3]
+ly = sys.argv[4]
+
+args = ("./cylinder2d", N, Re, lx, ly)
 popen = subprocess.Popen(args, stdout=subprocess.PIPE)
 popen.wait()
-output = popen.stdout.read()
-print (output)
+print("Done generating data")
