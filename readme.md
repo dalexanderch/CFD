@@ -1,6 +1,8 @@
 # CFD Upsampler
 
-The goal of our tool is to upsample CFD simulations from a small grid to a larger grid in the hope of saving on computation time. 
+The goal of our tool is to upsample CFD simulations from a small grid to a larger grid in the hope of saving on computation time. My model is based on the SRCNN architecture. You can find the paper here : 
+https://arxiv.org/pdf/1501.00092.pdf
+The results are not very impressive yet. It's not clear that the original idea was viable. However it might be the case that I have a problem somewhere in my process that I have not been able to spot. 
 
 ## Requirements
 
