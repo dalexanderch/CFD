@@ -2,7 +2,6 @@ from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D
 from keras.models import Model
 from keras.datasets import mnist
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 import os
