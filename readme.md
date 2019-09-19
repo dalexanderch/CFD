@@ -35,15 +35,17 @@ An already trained network is already provided (upsample.h5).
 
 In order to run a simulation you need to use the file run.py in /CFD/palabos-v2.0r0/examples/showCases/cylinder2d. The parameters are the following : 
 
-- 
-- 
-- 
+- N : like above
+- Re : like above
+- lx : like above
+- ly : like above
 
 ## Upsampling a simulation 
 
 In order to upsample a simulation, you need to use the file predict.py in CFD/ 
 The parameters are :
  
-- 
--  
-- 
+- pathSmall = path of small grid images (the already trained network was trained for small images with size 100x100)
+- pathBig = path to save upsampled images
+
+
