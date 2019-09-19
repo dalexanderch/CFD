@@ -13,8 +13,35 @@ You need the following packages :
 
 ## Training the network
 
-For some reason, transferring files to google cloud from my local computer is extremely slow. Therefore, I'm using github as an intermediary. However, there is a limit on the number of files you can upload, therefore I compressed my data folder into a data.zip file that you need to unzip. 
-In order to train the network you then run upsample.py. If the training is really slow, your gpu is not being used. Make sure that tensorflow-gpu is installed and that all required packages and drivers are up to date. Setting up an environment from scratch is pretty hard, so I strongly suggest using prebuilt images from your favorite cloud provider. 
+- For some reason, transferring files to google cloud from my local computer is extremely slow. Therefore, I'm using github as an intermediary. However, there is a limit on the number of files you can upload, therefore I compressed my data folder into a data.zip file that you need to unzip. 
+
+- In order to train the network you then run upsample.py. If the training is really slow, your gpu is not being used. Make sure that tensorflow-gpu is installed and that all required packages and drivers are up to date. Setting up an environment from scratch is pretty hard, so I strongly suggest using prebuilt images from your favorite cloud provider. 
 I personally use the official tensorflow image from google cloud : https://cloud.google.com/deep-learning-vm/
+
+- In order to generate custom data, you need to run generate_data.py which is located in /CFD/palabos-v2.0r0/examples/showCases/cylinder2d. The parameters are the following 
+	- Number of batches (there will be an equal number of small batches and big batches. Each batch corresponds to a 2 seconds simulation with a given Reynolds number, one with a small grid size, the other with a bigger grid size so we get parallel data)
+	- Upsampling rate (an integer to decide how large the big grid is going to be relative to the small grid. The trained model use was trained with a value of 2)
+	- Mean Reynolds number. In order to generate the data, we will sample our Reynolds numbers with the provided mean and the provided variance (see below).
+	- Variance : as explained above
+	- N : an integer used to build the grid. 
+	- lx : N*lx corresponds to the dimensionality of the x-axis.
+	- ly: N*ly corresponds to the dimensioanlity of the y-axis. 
+
 An already trained network is already provided (upsample.h5).
 
+## Running a simulation
+
+In order to run a simulation you need to use the file run.py in /CFD/palabos-v2.0r0/examples/showCases/cylinder2d. The parameters are the following : 
+
+- 
+- 
+- 
+
+## Upsampling a simulation 
+
+In order to upsample a simulation, you need to use the file predict.py in CFD/ 
+The parameters are :
+ 
+- 
+-  
+- 

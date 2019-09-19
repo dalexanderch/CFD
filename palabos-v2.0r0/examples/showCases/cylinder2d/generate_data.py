@@ -19,9 +19,10 @@ def sorted_nicely( l ):
 numBatches = int(sys.argv[1])
 upRate = int(sys.argv[2]) # big = upRate * n
 Re = int(sys.argv[3])
-N = int(sys.argv[4])
-lx = int(sys.argv[5])
-ly = int(sys.argv[6])
+Variance = int(sys.argv[4])
+N = int(sys.argv[5])
+lx = int(sys.argv[6])
+ly = int(sys.argv[7])
 
 # Generate random Reynolds number (sample from normal distribution with mean Re)
 mu, sigma = Re, 20       # mean and standard deviation
