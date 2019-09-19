@@ -36,8 +36,8 @@ for index,sample in enumerate(samples):
     start = time.time()
 
     # run ./cylinder2d
-    cmd = "./cylinder2d {} {} {} {}"
-    cmd = cmd.format(N,Re,lx,ly)
+    cmd = "./cylinder2d {} {} {} {} tmp/"
+    cmd = cmd.format(Re,N,lx,ly)
     os.system(cmd)
 
     # # clean tmp
@@ -77,8 +77,8 @@ for index,sample in enumerate(samples):
     # time
     start = time.time()
     # run ./cylinder2d
-    cmd = "./cylinder2d {} {} {} {}"
-    cmd = cmd.format(N,Re,lx,ly)
+    cmd = "./cylinder2d {} {} {} {} tmp/"
+    cmd = cmd.format(Re,N,lx,ly)
     os.system(cmd)
 
     # # convert images

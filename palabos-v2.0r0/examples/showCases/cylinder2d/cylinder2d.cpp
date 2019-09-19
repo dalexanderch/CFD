@@ -5,7 +5,7 @@
  * 1010 Lausanne, Switzerland
  * E-mail contact: contact@flowkit.com
  *
- * The most recent release of Palabos can be downloaded at
+ * The most recent release of Palabos can be downloaded at 
  * <http://www.palabos.org/>
  *
  * The library Palabos is free software: you can redistribute it and/or
@@ -36,7 +36,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <string>
 
 using namespace plb;
 using namespace plb::descriptors;
@@ -160,7 +159,7 @@ void cylinderSetup( MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
             lattice, lattice.getBoundingBox(),
             PoiseuilleVelocityAndDensity<T>(parameters) );
 
-    plint cx     = nx/2;
+    plint cx     = nx/4;
     plint cy     = ny/2+20; // cy is slightly offset to avoid full symmetry,
                           //   and to get a Von Karman Vortex street.
     plint radius = cy/4;
@@ -174,41 +173,30 @@ void cylinderSetup( MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
 void writeGif(MultiBlockLattice2D<T,DESCRIPTOR>& lattice, plint iter)
 {
     ImageWriter<T> imageWriter("leeloo");
-    imageWriter.writeScaledGif(createFileName("", iter, 6),
+    imageWriter.writeScaledGif(createFileName("u", iter, 6),
                                *computeVelocityNorm(lattice) );
 }
-
-// void writeTXT(MultiBlockLattice2D<T,DESCRIPTOR>& lattice, plint iter)
-// {
-//   ofstream myfile;
-//   std::string path ("tmp/" + std::toString);
-//   std::string rootname ("txt");
-//
-//   myfile.open (createFileName(path+rootname, iter, 6));
-//   myfile << *computeVelocityNorm(lattice);
-//   myfile.close();
-// }
 
 void writeVTK(MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
               IncomprFlowParam<T> const& parameters, plint iter)
 {
     T dx = parameters.getDeltaX();
     T dt = parameters.getDeltaT();
-    VtkImageOutput2D<T> vtkOut(createFileName("vtk", iter, 1), dx);
+    VtkImageOutput2D<T> vtkOut(createFileName("vtk", iter, 6), dx);
     vtkOut.writeData<float>(*computeVelocityNorm(lattice), "velocityNorm", dx/dt);
     vtkOut.writeData<2,float>(*computeVelocity(lattice), "velocity", dx/dt);
 }
 
 int main(int argc, char* argv[]) {
-
-    // Gather arguments
-    int N = atoi(argv[1]);
-    int Re = atoi(argv[2]);
-    int lx = atoi(argv[3]);
-    int ly = atoi(argv[4]);
     plbInit(&argc, &argv);
 
-    string dir = "./pred/";
+    // Gather arguments
+    int Re = atoi(argv[1]);
+    int N = atoi(argv[2]);
+    int lx = atoi(argv[3]);
+    int ly = atoi(argv[4]);
+    string dir = argv[5];
+
     global::directories().setOutputDir(dir);
 
     IncomprFlowParam<T> parameters(
@@ -216,12 +204,12 @@ int main(int argc, char* argv[]) {
             (T) Re,  // Re
             N,       // N
             lx,        // lx
-            ly         // ly
+            ly         // ly 
     );
-    // const T logT     = (T)0.04; // time interval
+    // const T logT     = (T)0.02;
     const T imSave   = (T)0.06;
     // const T vtkSave  = (T)1.;
-    const T maxT     = (T)2; // time
+    const T maxT     = (T)2.0;
 
     writeLogFile(parameters, "Poiseuille flow");
 
@@ -241,7 +229,6 @@ int main(int argc, char* argv[]) {
         //   and getStoredAverageDensity) correspond to the previous time iT-1.
 
        if (iT%parameters.nStep(imSave)==0) {
-            // pcout << "Saving Gif ..." << endl;
             writeGif(lattice, iT);
         }
 
@@ -249,11 +236,6 @@ int main(int argc, char* argv[]) {
         //     pcout << "Saving VTK file ..." << endl;
         //     writeVTK(lattice, parameters, iT);
         // }
-
-        // if (iT%parameters.nStep(imSave)==0) {
-        //      pcout << "Saving TXT ..." << endl;
-        //      writeTXT(lattice, iT);
-        //  }
 
         // if (iT%parameters.nStep(logT)==0) {
         //     pcout << "step " << iT
@@ -272,6 +254,6 @@ int main(int argc, char* argv[]) {
         //           << getStoredAverageDensity<T>(lattice) << endl;
         // }
     }
-
+    
     delete boundaryCondition;
 }
