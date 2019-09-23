@@ -4,6 +4,14 @@ The goal of our tool is to upsample CFD simulations from a small grid to a large
 https://arxiv.org/pdf/1501.00092.pdf
 The results are not very impressive yet. It's not clear that the original idea was viable. However it might be the case that I have a problem somewhere in my process that I have not been able to spot. 
 
+# Todo List 
+
+- Regenrate the data properly.
+- Finish training on mnist
+- Train on imagenet
+- Try different loss functions
+- Show the results in a clean presentation
+
 ## Requirements
 
 You need the following packages : 
