@@ -18,21 +18,21 @@ x_test = x_test.astype('float32') / 255
 
 
 # Resize the data
-x_train_big = []
-x_test_big = []
+x_train_small = []
+x_test_small = []
 for image in x_train:
 	image = Image.fromarray(image, mode='L')
-	image = image.resize((56,56), resample=Image.BILINEAR)
-	x_train_big.append(np.asarray(image))
+	image = image.resize((14,14), resample=Image.BILINEAR)
+	x_train_small.append(np.asarray(image))
 
-x_train_big = np.array(x_train_big)
+x_train_small = np.array(x_train_small)
 
 for image in x_test:
 	image = Image.fromarray(image, mode='L')
-	image = image.resize((56,56), resample=Image.BILINEAR)
-	x_test_big.append(np.asarray(image))
+	image = image.resize((14,14), resample=Image.BILINEAR)
+	x_test_small.append(np.asarray(image))
 
-x_test_big = np.array(x_test_big)
+x_test_small = np.array(x_test_small)
 
 
 # save arrays for image in x_train: 
@@ -45,12 +45,12 @@ print("Successfuly generated appropriate data")
 
 # prepare array for tensorflow
 x_train = np.expand_dims(x_train, x_train.shape[-1])
-x_train_big = np.expand_dims(x_train_big, x_train_big.shape[-1])
+x_train_small = np.expand_dims(x_train_small, x_train_small.shape[-1])
 x_test = np.expand_dims(x_test, x_test.shape[-1])
-x_test_big = np.expand_dims(x_test_big, x_test_big.shape[-1])
+x_test_small = np.expand_dims(x_test_small, x_test_small.shape[-1])
 
 # Build model
-input_img = Input(shape=(x_train.shape[1], x_train.shape[2], 1))  # adapt this if using `channels_first` image data format
+input_img = Input(shape=(x_train_small.shape[1], x_train_small.shape[2], 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 
@@ -59,11 +59,11 @@ upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error')
 
 #Train the model
-upsample.fit(x_train, x_train_big,
+upsample.fit(x_train_small, x_train,
                 epochs=epochs,
                 batch_size=batch_size,
                 shuffle=True,
-                validation_data=(x_test, x_test_big))
+                validation_data=(x_test_small, x_test))
 
 
 
