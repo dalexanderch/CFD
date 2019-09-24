@@ -12,6 +12,12 @@ The results are not very impressive yet. It's not clear that the original idea w
 - Try different loss functions
 - Show the results in a clean presentation
 
+# Results on MNIST
+
+We use mean square error as a loss function.
+- Using classical bilinear interpolation :
+- Using learned model : 
+
 ## Requirements
 
 You need the following packages : 
