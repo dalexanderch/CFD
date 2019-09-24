@@ -51,7 +51,7 @@ x_test_big = np.expand_dims(x_test_big, x_test_big.shape[-1])
 
 # Build model
 input_img = Input(shape=(x_train.shape[1], x_train.shape[2], 1))  # adapt this if using `channels_first` image data format
-x = UpSampling2D((2, 2))(input_img)
+x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
 x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
@@ -59,7 +59,6 @@ x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error')
-upsample.summary()
 
 #Train the model
 upsample.fit(x_train, x_train_big,
