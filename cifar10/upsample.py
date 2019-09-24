@@ -13,6 +13,8 @@ batch_size = int(sys.argv[2])
 # load MNIST data
 (x_train, _), (x_test, _) = cifar10.load_data()
 
+x_train = x_train[0:1000, :, :]
+
 
 # Convert to grayscale
 x_train_tmp = []
