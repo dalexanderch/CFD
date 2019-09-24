@@ -46,7 +46,7 @@ typedef double T;
 
 /// Velocity on the parabolic Poiseuille profile
 T poiseuilleVelocity(plint iY, IncomprFlowParam<T> const& parameters) {
-    T y = (T)iY / parameters.getResolution();
+    T y = (T)iY / (parameters.getNy() - 1);
     return 4.*parameters.getLatticeU() * (y-y*y);
 }
 
@@ -131,7 +131,8 @@ private:
 
 void cylinderSetup( MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
                     IncomprFlowParam<T> const& parameters,
-                    OnLatticeBoundaryCondition2D<T,DESCRIPTOR>& boundaryCondition )
+                    OnLatticeBoundaryCondition2D<T,DESCRIPTOR>& boundaryCondition,
+                    double ratio )
 {
     const plint nx = parameters.getNx();
     const plint ny = parameters.getNy();
@@ -159,10 +160,11 @@ void cylinderSetup( MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
             lattice, lattice.getBoundingBox(),
             PoiseuilleVelocityAndDensity<T>(parameters) );
 
-    plint cx     = nx/4;
-    plint cy     = ny/2+20; // cy is slightly offset to avoid full symmetry,
+    plint radius = parameters.getResolution() / 2;
+
+    plint cx     = nx / 8;
+    plint cy     = ny/2 + (plint)ratio; // cy is slightly offset to avoid full symmetry,
                           //   and to get a Von Karman Vortex street.
-    plint radius = cy/4;
     defineDynamics(lattice, lattice.getBoundingBox(),
                    new CylinderShapeDomain2D<T>(cx,cy,radius),
                    new plb::BounceBack<T,DESCRIPTOR>);
@@ -187,29 +189,46 @@ void writeVTK(MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
     vtkOut.writeData<2,float>(*computeVelocity(lattice), "velocity", dx/dt);
 }
 
+void writeRawData(MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
+              IncomprFlowParam<T> const& parameters, plint iter) 
+{
+    T dx = parameters.getDeltaX();
+    T dt = parameters.getDeltaT();
+
+    std::string fname(global::directories().getLogOutDir()+"u"+util::val2str(iter)+".dat");
+    plb_ofstream fout(fname.c_str());
+    fout << *multiply(*computeVelocityNorm(lattice), dx / dt);
+    fout.close();
+}
+
 int main(int argc, char* argv[]) {
     plbInit(&argc, &argv);
 
+    plint refDiameter = 10;
+
     // Gather arguments
-    int Re = atoi(argv[1]);
-    int N = atoi(argv[2]);
-    int lx = atoi(argv[3]);
-    int ly = atoi(argv[4]);
+    double Re = atof(argv[1]);
+    plint diameter = atoi(argv[2]);
+    double lx = atof(argv[3]);
+    double ly = atof(argv[4]);
     string dir = argv[5];
+
+    double ratio = (double)diameter / (double)refDiameter;
+    PLB_ASSERT((plint)ratio >= 1);
 
     global::directories().setOutputDir(dir);
 
     IncomprFlowParam<T> parameters(
-            (T) 1e-2,  // uMax
-            (T) Re,  // Re
-            N,       // N
-            lx,        // lx
-            ly         // ly 
+            (T) 1e-2, // uMax
+            Re,   // Re
+            diameter, // N
+            lx,       // lx
+            ly        // ly 
     );
     // const T logT     = (T)0.02;
     const T imSave   = (T)0.06;
     // const T vtkSave  = (T)1.;
-    const T maxT     = (T)2.0;
+    const T maxT     = (T)20.0;
 
     writeLogFile(parameters, "Poiseuille flow");
 
@@ -220,7 +239,7 @@ int main(int argc, char* argv[]) {
     OnLatticeBoundaryCondition2D<T,DESCRIPTOR>*
         boundaryCondition = createLocalBoundaryCondition2D<T,DESCRIPTOR>();
 
-    cylinderSetup(lattice, parameters, *boundaryCondition);
+    cylinderSetup(lattice, parameters, *boundaryCondition, ratio);
 
     // Main loop over time iterations.
     for (plint iT=0; iT*parameters.getDeltaT()<maxT; ++iT) {
@@ -229,6 +248,7 @@ int main(int argc, char* argv[]) {
         //   and getStoredAverageDensity) correspond to the previous time iT-1.
 
        if (iT%parameters.nStep(imSave)==0) {
+            // writeRawData(lattice, parameters, iT);
             writeGif(lattice, iT);
         }
 
