@@ -37,8 +37,7 @@ for image in x_test:
 
 x_test = np.array(x_test_tmp)
 
-print(x_train.shape)
-print(x_test.shape)
+
 
 x_train = x_train.astype('float32') / 255
 x_test = x_test.astype('float32') / 255
