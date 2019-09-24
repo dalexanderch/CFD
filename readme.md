@@ -16,7 +16,9 @@ The results are not very impressive yet. It's not clear that the original idea w
 
 We use mean square error as a loss function.
 - Using classical bilinear interpolation : 712.2994
-- Using learned model : 
+- Using learned model : 0.08
+
+It's weird that there's as much as a difference.
 
 ## Requirements
 
