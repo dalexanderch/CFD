@@ -162,7 +162,7 @@ void cylinderSetup( MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
 
     plint radius = parameters.getResolution() / 2;
 
-    plint cx     = nx / 8;
+    plint cx     = nx / 3;
     plint cy     = ny/2 + (plint)ratio; // cy is slightly offset to avoid full symmetry,
                           //   and to get a Von Karman Vortex street.
     defineDynamics(lattice, lattice.getBoundingBox(),
@@ -228,7 +228,7 @@ int main(int argc, char* argv[]) {
     // const T logT     = (T)0.02;
     const T imSave   = (T)0.06;
     // const T vtkSave  = (T)1.;
-    const T maxT     = (T)20.0;
+    const T maxT     = (T)50.0;
 
     writeLogFile(parameters, "Poiseuille flow");
 
@@ -237,7 +237,7 @@ int main(int argc, char* argv[]) {
             new BGKdynamics<T,DESCRIPTOR>(parameters.getOmega()) );
 
     OnLatticeBoundaryCondition2D<T,DESCRIPTOR>*
-        boundaryCondition = createLocalBoundaryCondition2D<T,DESCRIPTOR>();
+        boundaryCondition = createInterpBoundaryCondition2D<T,DESCRIPTOR>();
 
     cylinderSetup(lattice, parameters, *boundaryCondition, ratio);
 
