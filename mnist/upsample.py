@@ -22,14 +22,14 @@ x_test = x_test.astype('float32') / 255
 x_train_small = []
 x_test_small = []
 for image in x_train:
-	image = Image.fromarray(image, mode='L')
+	image = Image.fromarray(image, mode='F')
 	image = image.resize((14,14), resample=Image.BILINEAR)
 	x_train_small.append(np.asarray(image))
 
 x_train_small = np.array(x_train_small)
 
 for image in x_test:
-	image = Image.fromarray(image, mode='L')
+	image = Image.fromarray(image, mode='F')
 	image = image.resize((14,14), resample=Image.BILINEAR)
 	x_test_small.append(np.asarray(image))
 
