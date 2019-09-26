@@ -15,8 +15,8 @@ The results are not very impressive yet. It's not clear that the original idea w
 # Results on MNIST
 
 We use mean square error as a loss function.
-- Using classical bilinear interpolation : 0.0252
-- Using learned model : 0.002
+- Using classical bilinear interpolation : 0.024952497333288193
+- Using learned model : 0.0012613980419933796
 
 0.0252/0.002 = 12.6, therefore the learned model is about 13 times better than the classical interpolation method. 
 

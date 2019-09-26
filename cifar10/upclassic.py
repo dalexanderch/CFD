@@ -84,6 +84,8 @@ upsample.fit(x_train_small, x_train,
                 shuffle=True,
                 validation_data=(x_test_small, x_test))
 
+# Evaluate
+print(upsample.evaluate(x_test_small, x_test))
 
 #################### Save model
 upsample.save("upsample.h5")
