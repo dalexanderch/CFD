@@ -32,10 +32,11 @@ We use mean square error as a loss function
 # Results on Cifar100
 
 We use mean square error as a loss function
-- Using classical bilinear interpolation : 0.0062
-- Using learned model : 0.0055
+- Using classical bilinear interpolation : 0.00618905103802681
+- Using learned model : 0.0031197709500789643
 
-0.063/0.0050 = 1.24, therefore the learned model is about 24% times better than the classical interpolation method. 
+
+0.063/0.0050 = 1.98 (rounded) , therefore the learned model is about 2 times better than the classical interpolation method. 
 
 ## Requirements
 
