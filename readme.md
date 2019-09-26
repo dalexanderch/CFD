@@ -27,7 +27,7 @@ We use mean square error as a loss function
 - Using learned model : 0.0030932600185275077
 
 
-0.0062843139857053755/0.0030932600185275077 = 2.03, therefore the learned model is about 2 times better than the classical interpolation method. 
+0.0062843139857053755/0.0030932600185275077 = 2.03 (rounded), therefore the learned model is about 2 times better than the classical interpolation method. 
 
 # Results on Cifar100
 
