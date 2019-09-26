@@ -36,7 +36,7 @@ We use mean square error as a loss function
 - Using learned model : 0.0031197709500789643
 
 
-0.063/0.0050 = 1.98 (rounded) , therefore the learned model is about 2 times better than the classical interpolation method. 
+0.00618905103802681/0.0031197709500789643 = 1.98 (rounded) , therefore the learned model is about 2 times better than the classical interpolation method. 
 
 ## Requirements
 
