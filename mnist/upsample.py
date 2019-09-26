@@ -70,6 +70,6 @@ upsample.fit(x_train_small, x_train,
 
 
 # Evaluate
-upsample.evaluate(x_test_small, x_test)
+print(upsample.evaluate(x_test_small, x_test))
 #################### Save model
 upsample.save("upsample.h5")
