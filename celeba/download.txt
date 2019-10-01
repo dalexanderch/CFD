@@ -1,0 +1,4 @@
+pip install gdown
+Then,
+gdown --id 11f0EkIozfx3kJuEolyd79Bi5oHltDBAS --output data.zip
+
