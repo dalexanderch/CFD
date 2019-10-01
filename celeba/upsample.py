@@ -11,7 +11,7 @@ def gen(it1, it2):
         yield X,Y
 
 # Parameters 
-batch_size = 32
+batch_size = 256
 epochs = 20
 
 # Create generator
