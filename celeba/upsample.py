@@ -11,7 +11,7 @@ def gen(it1, it2):
         yield X,Y
 
 # Parameters 
-batch_size = 256
+batch_size = 32
 epochs = 20
 
 # Create generator
@@ -40,7 +40,7 @@ g_val = gen(val_small_it, val_it)
 
 upsample.fit_generator(
 	generator = g_train,
-	steps_per_epoch = 5727, # 183240/256 rounded upward
+	steps_per_epoch = 5727, # 183240/32 rounded upward
 	epochs = 20,
 	validation_data = g_val,
 	validation_steps = 634 # 20259/256 rounded upward
