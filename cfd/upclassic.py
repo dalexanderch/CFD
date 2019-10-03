@@ -20,8 +20,8 @@ datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
 # Prepare training and validation  datasets
 train_it = datagen.flow_from_directory(directory='datacfd/big/', target_size=(200,80), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training')
 val_it = datagen.flow_from_directory(directory='datacfd/big/', target_size=(200,80), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation')
-train_small_it  = datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training', interpolation = 'bilinear')
-val_small_it =  datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation', interpolation = 'bilinear')
+train_small_it  = datagen.flow_from_directory(directory='datacfd/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training', interpolation = 'bilinear')
+val_small_it =  datagen.flow_from_directory(directory='datacfd/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation', interpolation = 'bilinear')
 
 # Build model
 input_img = Input(shape=(89, 109, 1))  # adapt this if using `channels_first` image data format
