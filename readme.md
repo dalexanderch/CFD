@@ -38,6 +38,13 @@ We use mean square error as a loss function
 
 0.00618905103802681/0.0031197709500789643 = 1.98 (rounded) , therefore the learned model is about 2 times better than the classical interpolation method. 
 
+# Results on Celeba
+
+We use mean square error as a loss function
+- Using classical bilinear interpolation : 0.00618905103802681
+- Using learned model : 
+
+
 ## Requirements
 
 You need the following packages : 
