@@ -1,0 +1,11 @@
+Poiseuille flow
+
+Velocity in lattice units: u=0.01
+Reynolds number:           Re=600
+Lattice resolution:        N=20
+Relaxation frequency:      omega=1.99601
+Extent of the system:      lx=5
+Extent of the system:      ly=5
+Extent of the system:      lz=0
+Grid spacing deltaX:       dx=0.05
+Time step deltaT:          dt=0.0005
