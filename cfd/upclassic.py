@@ -24,7 +24,7 @@ train_small_it  = datagen.flow_from_directory(directory='datacfd/small/', target
 val_small_it =  datagen.flow_from_directory(directory='datacfd/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation', interpolation = 'bilinear')
 
 # Build model
-input_img = Input(shape=(89, 109, 1))  # adapt this if using `channels_first` image data format
+input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
