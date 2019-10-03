@@ -8,6 +8,7 @@ pathsave = "/data/small/data/"
 
 dirs = os.listdir( curr + path )
 for index, item in enumerate(dirs):
+	print (item)
     if os.path.isfile(path+item):
         im = Image.open(path+item)
         f, e = os.path.splitext(path+item)
