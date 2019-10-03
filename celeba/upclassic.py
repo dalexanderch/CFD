@@ -44,3 +44,6 @@ upsample.fit_generator(
 
 # Save weights
 upsample.save("upsample.h5")
+
+# Evaluate
+print(upsample.evaluate_generator(generator = g_train))
