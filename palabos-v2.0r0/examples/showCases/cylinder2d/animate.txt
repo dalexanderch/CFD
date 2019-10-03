@@ -1,0 +1,2 @@
+convert -delay 5 u*.gif animation.gif
+animate animation.gif

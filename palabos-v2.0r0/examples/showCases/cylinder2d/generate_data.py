@@ -20,7 +20,7 @@ numBatches = int(sys.argv[1])
 upRate = int(sys.argv[2]) # big = upRate * n
 Re = int(sys.argv[3])
 Variance = int(sys.argv[4])
-N = int(sys.argv[5])
+Diameter = int(sys.argv[5])
 lx = int(sys.argv[6])
 ly = int(sys.argv[7])
 
@@ -37,7 +37,7 @@ for index,sample in enumerate(samples):
 
     # run ./cylinder2d
     cmd = "./cylinder2d {} {} {} {} tmp/"
-    cmd = cmd.format(Re,N,lx,ly)
+    cmd = cmd.format(Re,Diameter,lx,ly)
     os.system(cmd)
 
     # # clean tmp
@@ -67,18 +67,18 @@ for index,sample in enumerate(samples):
     stop = time.time()
 
     # Print end of epoch
-    print("Small batch {} generated with N:{} , Re:{}, lx:{}, ly:{}. Time taken : {} seconds".format(index+1,N,sample,lx,ly,stop-start))
+    print("Small batch {} generated with Diameter:{} , Re:{}, lx:{}, ly:{}. Time taken : {} seconds".format(index+1,Diameter,sample,lx,ly,stop-start))
 
 
 # Generate big samples
-N = upRate * N
+Diameter = upRate * Diameter
 for index,sample in enumerate(samples):
 
     # time
     start = time.time()
     # run ./cylinder2d
     cmd = "./cylinder2d {} {} {} {} tmp/"
-    cmd = cmd.format(Re,N,lx,ly)
+    cmd = cmd.format(Re,Diameter,lx,ly)
     os.system(cmd)
 
     # # convert images
@@ -107,4 +107,4 @@ for index,sample in enumerate(samples):
     stop = time.time()
 
     # Print end of epoch
-    print("Big batch {} generated with N:{} , Re:{}, lx:{}, ly:{}. Time taken : {} seconds".format(index+1,N,sample,lx,ly,stop-start))
+    print("Big batch {} generated with Diameter:{} , Re:{}, lx:{}, ly:{}. Time taken : {} seconds".format(index+1,Diameter,sample,lx,ly,stop-start))

@@ -1,0 +1,2 @@
+ python3 generate_data.py 1 2 600 20 20 5 2  
+
