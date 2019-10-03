@@ -41,7 +41,7 @@ We use mean square error as a loss function
 # Results on Celeba
 
 We use mean square error as a loss function
-- Using classical bilinear interpolation : 0.00618905103802681
+- Using classical bilinear interpolation : 0.0017664979663281476
 - Using learned model : 
 
 
