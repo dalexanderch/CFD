@@ -46,4 +46,4 @@ upsample.fit_generator(
 upsample.save("upsample.h5")
 
 # Evaluate
-print(upsample.evaluate_generator(generator = g_val, steps=634))
+print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
