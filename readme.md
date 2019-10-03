@@ -44,6 +44,12 @@ We use mean square error as a loss function
 - Using classical bilinear interpolation : 0.0017664979663281476
 - Using learned model : 
 
+# Results on CFD
+
+We have batches. One batch is images. Total numbers of pairs :
+We use mean square error as a loss function
+- Using classical bilinear interpolation : 0.0017664979663281476
+- Using learned model : 
 
 ## Requirements
 
