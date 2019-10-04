@@ -40,7 +40,7 @@ g_val = gen(val_small_it, val_it)
 upsample.fit_generator(
 	generator = g_train,
 	steps_per_epoch = 5727, # 183240/32 rounded upward
-	epochs = 5,
+	epochs = 10,
 	validation_data = g_val,
 	validation_steps = 634, # 20259/256 rounded upward
 	use_multiprocessing=True
