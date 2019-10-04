@@ -45,13 +45,13 @@ We use mean square error as a loss function
 - Using learned model : 0.0010899672106596944
 
 0.0017664979663281476/0.0010899672106596944 = 1.62 (rounded), therefore the learned model is about 62 % better than the classical interpolation method.
-0.0010899672106596944
+
 
 # Results on CFD
 
-We have batches. One batch is images. Total numbers of pairs :
+We have batches. One batch is 167 images. Total numbers of pairs : 30060
 We use mean square error as a loss function
-- Using classical bilinear interpolation : 0.0017664979663281476
+- Using classical bilinear interpolation : 0.02579191533496251
 - Using learned model : 
 
 ## Requirements
