@@ -5,7 +5,7 @@ import time
 # Run only once to downscale the images and convert to grayscale once and for all
 curr = os.getcwd()
 path = "/data/img/"
-pathsave = "/data/img/"
+pathsave = "/data/imgsmall/"
 dirs = os.listdir( curr + path )
 start = time.time()
 
