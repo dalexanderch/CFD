@@ -10,7 +10,6 @@ dirs = os.listdir( curr + path )
 start = time.time()
 
 for index, item in enumerate(dirs):
-	print(index)
 	im = Image.open(curr + path + item)
 	im = im.convert('L')
 	imResize = im.resize((89,109), Image.BILINEAR)
