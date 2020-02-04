@@ -1,14 +1,25 @@
-from keras.preprocessing.image import ImageDataGenerator
+from sklearn.metrics import mean_squared_error
 from PIL import Image
+import numpy as np
+from keras.datasets import cifar100
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
-import numpy as np
+import sys
+import math
+from keras import backend as K
 
 def gen(it1, it2):
     while True:
         X = it1.next()
         Y = it2.next()
         yield X,Y
+
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+
 
 # Parameters
 epochs = int(sys.argv[1])
@@ -28,7 +39,7 @@ input_img = Input(shape=(89, 109, 1))  # adapt this if using `channels_first` im
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error')
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
