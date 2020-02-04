@@ -5,8 +5,16 @@ from keras.datasets import cifar100
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
 import sys
+import math
+from keras import backend as K
 
-# parameters 
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+
+# parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
 
@@ -75,7 +83,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error')
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 #Train the model
 upsample.fit(x_train_small, x_train,

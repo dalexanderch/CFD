@@ -5,8 +5,10 @@ from keras.datasets import cifar100
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
 import sys
+import math
+from keras import backend as K
 
-# parameters 
+# parameters
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
 
@@ -78,7 +80,7 @@ x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error')
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 #Train the model
 upsample.fit(x_train_small, x_train,
