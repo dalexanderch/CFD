@@ -1,3 +1,4 @@
+from keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import mean_squared_error
 from PIL import Image
 import numpy as np
@@ -7,6 +8,7 @@ from keras.models import Model
 import sys
 import math
 from keras import backend as K
+
 
 def gen(it1, it2):
     while True:
@@ -19,7 +21,6 @@ def PSNR(y_true, y_pred):
     max_pixel = 1.0
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
-
 
 # Parameters
 epochs = int(sys.argv[1])
