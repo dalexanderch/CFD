@@ -1,8 +1,13 @@
-from keras.preprocessing.image import ImageDataGenerator
+from sklearn.metrics import mean_squared_error
 from PIL import Image
+import numpy as np
+from keras.datasets import cifar100
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
-import numpy as np
+import sys
+import math
+from keras import backend as K
+from keras_preprocessing.image import ImageDataGenerator
 
 def gen(it1, it2):
     while True:
@@ -10,9 +15,15 @@ def gen(it1, it2):
         Y = it2.next()
         yield X,Y
 
-# Parameters 
-batch_size = 32
-epochs = 20
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+
+# parameters
+epochs = int(sys.argv[1])
+batch_size = int(sys.argv[2])
 
 # Create generator
 datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
