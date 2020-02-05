@@ -9,7 +9,12 @@ import math
 from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
 
-
+def gen(it1, it2):
+    while True:
+        X = it1.next()
+        Y = it2.next()
+        yield X,Y
+        
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0

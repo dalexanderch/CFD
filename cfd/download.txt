@@ -1,1 +1,2 @@
 wget -O datacfd.zip https://www.dropbox.com/s/0ltr27ciqkrub2n/datacfd.zip?dl=1
+convert *.gif *.jpg
