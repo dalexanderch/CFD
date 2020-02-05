@@ -7,7 +7,6 @@ from keras.models import Model
 import sys
 import math
 from keras import backend as K
-from keras_preprocessing.image import ImageDataGenerator
 
 
 # Define our custom metric
