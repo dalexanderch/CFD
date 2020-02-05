@@ -7,6 +7,8 @@ from keras.models import Model
 import sys
 import math
 from keras import backend as K
+from keras_preprocessing.image import ImageDataGenerator
+
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
@@ -32,7 +34,7 @@ input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` im
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error')
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
