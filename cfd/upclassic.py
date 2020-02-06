@@ -23,7 +23,6 @@ class DualLoss(object):
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if self.var is None:
       self.var = y_true
-      return mse/10
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
     self.var = y_true
     return (mse + mseprev)/2
@@ -50,9 +49,9 @@ val_small_it =  datagen.flow_from_directory(directory='datacfd/small/', target_s
 # Build model
 input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-
-upsample = Model(input_img, x)
 dual = DualLoss()
+upsample = Model(input_img, x)
+
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
 
 # Train
