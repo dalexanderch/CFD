@@ -14,7 +14,20 @@ def gen(it1, it2):
         X = it1.next()
         Y = it2.next()
         yield X,Y
-        
+
+class DualLoss(object):
+  def __init__(self):
+    self.var = None
+
+  def __call__(self, y_true, y_pred, sample_weight=None):
+    mse = K.mean(K.square(y_true - y_pred), axis=-1)
+    if self.var is None:
+      self.var = y_true
+    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
+    self.var = y_true
+    print(mse, mseprev)
+    return (mse + mseprev)/2
+
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
@@ -39,7 +52,8 @@ input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` im
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
+dual = DualLoss()
+upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
