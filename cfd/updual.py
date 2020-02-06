@@ -25,7 +25,7 @@ class DualLoss(object):
       self.var = y_true
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
     self.var = y_true
-    return (mse - mseprev)/2
+    return (mse + mseprev)/2
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
