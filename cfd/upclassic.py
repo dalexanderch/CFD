@@ -25,7 +25,7 @@ class DualLoss(object):
       self.var = y_true
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
     self.var = y_true
-    return (mse + mseprev)/100
+    return (mse + mseprev)/2
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
@@ -52,7 +52,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
 dual = DualLoss()
-upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
