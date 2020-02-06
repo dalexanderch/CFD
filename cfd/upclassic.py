@@ -52,7 +52,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
 dual = DualLoss()
-upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss='dual', metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
