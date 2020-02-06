@@ -50,8 +50,9 @@ val_small_it =  datagen.flow_from_directory(directory='datacfd/small/', target_s
 # Build model
 input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-
-upsample = Model(input_img, x)
+x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
+x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 dual = DualLoss()
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
 
@@ -62,7 +63,7 @@ g_val = gen(val_small_it, val_it)
 upsample.fit_generator(
 	generator = g_train,
 	steps_per_epoch = 5727, # 183240/32 rounded upward
-	epochs = 1,
+	epochs = epochs,
 	validation_data = g_val,
 	validation_steps = 634, # 20259/256 rounded upward
 	use_multiprocessing=True
