@@ -1,3 +1,6 @@
 wget -O datacfd.zip https://www.dropbox.com/s/0ltr27ciqkrub2n/datacfd.zip?dl=1
 convert *.gif *.jpg
 mogrify -format jpg *.*
+https://drive.google.com/file/d/11f0EkIozfx3kJuEolyd79Bi5oHltDBAS/view?usp=sharing
+
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=11f0EkIozfx3kJuEolyd79Bi5oHltDBAS' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=11f0EkIozfx3kJuEolyd79Bi5oHltDBAS" -O data.zip && rm -rf /tmp/cookies.txt
