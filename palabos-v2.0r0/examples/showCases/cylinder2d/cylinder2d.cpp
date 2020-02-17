@@ -226,7 +226,7 @@ int main(int argc, char* argv[]) {
             ly        // ly 
     );
     // const T logT     = (T)0.02;
-    const T imSave   = (T)0.06;
+    const T imSave   = (T)0.02; // 0.06
     // const T vtkSave  = (T)1.;
     const T maxT     = (T)10.0;
 
