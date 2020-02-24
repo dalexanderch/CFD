@@ -51,7 +51,6 @@ upsample.fit_generator(
 	epochs = 1,
 	validation_data = g_val,
     max_queue_size = 10,
-    workers = 10,
 	validation_steps = 634, # 20259/32 rounded upward
 	use_multiprocessing=False
 	)
