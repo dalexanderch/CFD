@@ -4,12 +4,16 @@ from keras.datasets import mnist
 from keras.models import load_model
 import math
 from keras import backend as K
+import sys
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
+
+# parameters
+model = sys.argv[1]
 
 # load MNIST data
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -35,7 +39,11 @@ for image in x_test:
 x_test_small = np.array(x_test_small)
 
 # Load model and predict
-upsample = load_model('upsample.h5')
+if model == "upsample":
+	upsample = load_model('upsample.h5')
+else:
+	upsample = load_model('upclassic.h5')
+
 
 image = x_test_small[0]
 image = image[0:image.shape[0], 0:image.shape[1]]
