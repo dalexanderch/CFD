@@ -25,13 +25,13 @@ img1.save('img1.png', 'PNG')
 img2 = x_test[0]
 img2 = img2 * 255
 img2 = img2.astype('uint8')
-img2 = Image.fromarray(img1, mode = 'RGB')
+img2 = Image.fromarray(img2, mode = 'RGB')
 img2 = img2.convert('L')
 img2.save('img2.png', 'PNG')
 img3 = x_test[0]
 img3 = img3 * 255
 img3 = img3.astype('uint8')
-img3 = Image.fromarray(img1, mode = 'RGB')
+img3 = Image.fromarray(img2, mode = 'RGB')
 img3 = img3.convert('L')
 img3.save('img3.png', 'PNG')
 
