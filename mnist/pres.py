@@ -69,8 +69,12 @@ predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shap
 predicted_img = Image.fromarray(predicted_img, mode='L')
 predicted_img.save('predictedclassic3.png', 'PNG')
 
+dependencies = {
+     'PSNR': PSNR
+}
+
 # Load model and predict
-upsample = load_model('upsamples.h5')
+upsample = load_model('upsamples.h5', custom_objects=dependencies)
 
 image = x_test_small[0]
 image = image[0:image.shape[0], 0:image.shape[1]]
