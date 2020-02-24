@@ -16,11 +16,18 @@ y_true))))
 (x_train, _), (x_test, _) = cifar10.load_data()
 
 # Save original
+
 img1 = Image.fromarray(x_test[0], 'L')
+img1 = img1 * 255
+img1 = img1.astype('uint8')
 img1.save('img1.png', 'PNG')
 img2 = Image.fromarray(x_test[1], 'L')
+img2 = img2 * 255
+img2 = img2.astype('uint8')
 img2.save('img2.png', 'PNG')
 img3 = Image.fromarray(x_test[2], 'L')
+img3 = img3 * 255
+img3 = img3.astype('uint8')
 img3.save('img3.png', 'PNG')
 
 x_train = x_train.astype('float32') / 255.
