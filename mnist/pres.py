@@ -12,9 +12,6 @@ def PSNR(y_true, y_pred):
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
 
-# parameters
-model = sys.argv[1]
-
 # load MNIST data
 (x_train, _), (x_test, _) = mnist.load_data()
 
