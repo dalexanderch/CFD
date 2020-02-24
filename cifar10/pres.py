@@ -35,14 +35,13 @@ img3 = Image.fromarray(img3, mode = 'RGB')
 img3 = img3.convert('L')
 img3.save('img3.png', 'PNG')
 
-x_train = x_train.astype('float32') / 255.
 x_test = x_test.astype('float32') / 255
 
+# Resize the data
 x_test_small = []
-
 for image in x_test:
 	image = Image.fromarray(image, mode='F')
-	image = image.resize((14,14), resample=Image.BILINEAR)
+	image = image.resize((16,16), resample=Image.BILINEAR)
 	x_test_small.append(np.asarray(image))
 
 x_test_small = np.array(x_test_small)
