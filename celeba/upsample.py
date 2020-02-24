@@ -30,7 +30,7 @@ datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
 
 # Prepare training and validation  datasets
 train_it = datagen.flow_from_directory(directory='data/databig', target_size=(178,218), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training')
-val_it = datagen.flow_from_directory(directory='data/databig/', target_size=(178,218), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation')
+val_it = datagen.flow_from_directory(directory='data/databig', target_size=(178,218), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation')
 train_small_it  = datagen.flow_from_directory(directory='data/datasmall', target_size=(89,109), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training', interpolation = 'bilinear')
 val_small_it =  datagen.flow_from_directory(directory='data/datasmall', target_size=(89,109), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation', interpolation = 'bilinear')
 
@@ -51,10 +51,10 @@ g_val = gen(val_small_it, val_it)
 
 upsample.fit_generator(
 	generator = g_train,
-	steps_per_epoch = 715, # 183240/32 rounded upward
+	steps_per_epoch = 5727, # 183240/32 rounded upward
 	epochs = 20,
 	validation_data = g_val,
-	validation_steps = 79, # 20259/256 rounded upward
+	validation_steps = 634, # 20259/256 rounded upward
 	use_multiprocessing=True
 	)
 
