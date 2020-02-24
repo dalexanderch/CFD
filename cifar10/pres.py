@@ -35,6 +35,17 @@ img3 = Image.fromarray(img3, mode = 'RGB')
 img3 = img3.convert('L')
 img3.save('img3.png', 'PNG')
 
+x_test_tmp = []
+for image in x_test:
+	image = image * 255
+	image = image.astype('uint8')
+	image = Image.fromarray(image, mode = 'RGB')
+	image = image.convert('L')
+	image = np.asarray(image)
+	x_test_tmp.append(image)
+
+x_test = np.array(x_test_tmp)
+
 x_test = x_test.astype('float32') / 255
 
 # Resize the data
