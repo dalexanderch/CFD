@@ -42,7 +42,7 @@ dependencies = {
 # Load model and predict
 upsample = load_model('upclassic.h5', custom_objects=dependencies)
 predicted_img = np.asarray(image1)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 print(predicted_img)
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
