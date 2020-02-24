@@ -2,7 +2,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import mean_squared_error
 from PIL import Image
 import numpy as np
-from keras.datasets import cifar100
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
 import sys
