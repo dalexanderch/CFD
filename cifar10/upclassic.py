@@ -97,4 +97,4 @@ upsample.fit(x_train_small, x_train,
 print(upsample.evaluate(x_test_small, x_test))
 
 #################### Save model
-upsample.save("upsample.h5")
+upsample.save("upclassic.h5")
