@@ -78,7 +78,7 @@ dependencies = {
 }
 
 # Load model and predict
-upsample = load_model('upsamples.h5', custom_objects=dependencies)
+upsample = load_model('upsample.h5', custom_objects=dependencies)
 
 image = x_test_small[0]
 image = image[0:image.shape[0], 0:image.shape[1]]
