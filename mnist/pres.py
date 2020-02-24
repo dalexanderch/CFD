@@ -39,10 +39,7 @@ for image in x_test:
 x_test_small = np.array(x_test_small)
 
 # Load model and predict
-if model == "upsample":
-	upsample = load_model('upsample.h5')
-else:
-	upsample = load_model('upclassic.h5')
+upsample = load_model('upclassic.h5')
 
 
 image = x_test_small[0]
@@ -53,7 +50,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img.save('predicted1.png', 'PNG')
+predicted_img.save('predictedclassic1.png', 'PNG')
 
 image = x_test_small[1]
 image = image[0:image.shape[0], 0:image.shape[1]]
@@ -63,7 +60,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img.save('predicted2.png', 'PNG')
+predicted_img.save('predictedclassic2.png', 'PNG')
 
 image = x_test_small[2]
 image = image[0:image.shape[0], 0:image.shape[1]]
@@ -73,4 +70,37 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img.save('predicted3.png', 'PNG')
+predicted_img.save('predictedclassic3.png', 'PNG')
+
+# Load model and predict
+upsample = load_model('upsamples.h5')
+
+image = x_test_small[0]
+image = image[0:image.shape[0], 0:image.shape[1]]
+image = image.reshape(1, image.shape[0], image.shape[1], 1 )
+predicted_img = upsample.predict(image)
+predicted_img = 255 * predicted_img
+predicted_img = predicted_img.astype('int8')
+predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
+predicted_img = Image.fromarray(predicted_img, mode='L')
+predicted_img.save('predictedmodel1.png', 'PNG')
+
+image = x_test_small[1]
+image = image[0:image.shape[0], 0:image.shape[1]]
+image = image.reshape(1, image.shape[0], image.shape[1], 1 )
+predicted_img = upsample.predict(image)
+predicted_img = 255 * predicted_img
+predicted_img = predicted_img.astype('int8')
+predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
+predicted_img = Image.fromarray(predicted_img, mode='L')
+predicted_img.save('predictedmodel2.png', 'PNG')
+
+image = x_test_small[2]
+image = image[0:image.shape[0], 0:image.shape[1]]
+image = image.reshape(1, image.shape[0], image.shape[1], 1 )
+predicted_img = upsample.predict(image)
+predicted_img = 255 * predicted_img
+predicted_img = predicted_img.astype('int8')
+predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
+predicted_img = Image.fromarray(predicted_img, mode='L')
+predicted_img.save('predictedmodel3.png', 'PNG')
