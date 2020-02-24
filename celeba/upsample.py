@@ -22,8 +22,9 @@ def PSNR(y_true, y_pred):
 y_true))))
 
 # Parameters
-batch_size = 32
-epochs = 20
+batch_size = int(sys.argv[1])
+epochs = int(sys.argv[2])
+
 
 # Create generator
 datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
