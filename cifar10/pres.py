@@ -21,15 +21,15 @@ img1 = img1 * 255
 img1 = img1.astype('uint8')
 img1 = Image.fromarray(img1, mode = 'L')
 img1.save('img1.png', 'PNG')
-img2 = x_test[0]
+img2 = x_test[1]
 img2 = img2 * 255
 img2 = img2.astype('uint8')
 img2 = Image.fromarray(img2, mode = 'L')
 img2.save('img2.png', 'PNG')
-img3 = x_test[0]
+img3 = x_test[2]
 img3 = img3 * 255
 img3 = img3.astype('uint8')
-img3 = Image.fromarray(img1, mode = 'L')
+img3 = Image.fromarray(img3, mode = 'L')
 img3.save('img3.png', 'PNG')
 
 x_train = x_train.astype('float32') / 255.
