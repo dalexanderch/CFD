@@ -37,7 +37,6 @@ val_small_it =  datagen.flow_from_directory(directory='data/small/', target_size
 # Build model
 input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-dual = DualLoss()
 upsample = Model(input_img, x)
 
 upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
