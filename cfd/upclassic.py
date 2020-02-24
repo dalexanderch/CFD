@@ -15,18 +15,6 @@ def gen(it1, it2):
         Y = it2.next()
         yield X,Y
 
-class DualLoss(object):
-  def __init__(self):
-    self.var = None
-
-  def __call__(self, y_true, y_pred, sample_weight=None):
-    mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if self.var is None:
-      self.var = y_true
-    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    self.var = y_true
-    return (mse + mseprev)/2
-
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
@@ -52,7 +40,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 dual = DualLoss()
 upsample = Model(input_img, x)
 
-upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
@@ -68,7 +56,7 @@ upsample.fit_generator(
 	)
 
 # Save weights
-# upsample.save("upsample.h5")
+upsample.save("upclassic.h5")
 
 # Evaluate
 print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
