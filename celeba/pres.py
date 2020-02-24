@@ -4,6 +4,12 @@ from keras.datasets import cifar10
 from keras.models import load_model
 import os
 
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+
 # Save original
 curr = os.getcwd()
 image1 = Image.open(curr + "/data/databig/img/000001.jpg")
@@ -26,7 +32,12 @@ image3 = image3.resize((109,89), resample=Image.BILINEAR)
 image4 = image4.resize((109,89), resample=Image.BILINEAR)
 
 # Predict
-upsample = load_model('upclassic.h5')
+dependencies = {
+     'PSNR': PSNR
+}
+
+# Load model and predict
+upsample = load_model('upclassic.h5', custom_objects=dependencies)
 predicted_img = np.asarray(image1)
 predicted_img = predicted_img/255
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
@@ -72,7 +83,12 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img4classic.jpg', 'JPEG')
 
 # Predict
-upsample = load_model('upsamples.h5')
+dependencies = {
+     'PSNR': PSNR
+}
+
+# Load model and predict
+upsample = load_model('upsample.h5', custom_objects=dependencies)
 predicted_img = np.asarray(image1)
 predicted_img = predicted_img/255
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
