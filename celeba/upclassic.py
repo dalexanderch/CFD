@@ -22,9 +22,6 @@ def PSNR(y_true, y_pred):
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
 
-# Parameters
-epochs = int(sys.argv[1])
-batch_size = int(sys.argv[2])
 
 # Create generator
 datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
