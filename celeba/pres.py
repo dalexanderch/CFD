@@ -43,7 +43,6 @@ dependencies = {
 upsample = load_model('upclassic.h5', custom_objects=dependencies)
 predicted_img = np.asarray(image1)
 predicted_img = predicted_img/255.00
-print(predicted_img)
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -54,7 +53,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img1classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image2)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -65,7 +64,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img2classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image3)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -76,7 +75,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img3classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image4)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -94,7 +93,7 @@ dependencies = {
 # Load model and predict
 upsample = load_model('upsample.h5', custom_objects=dependencies)
 predicted_img = np.asarray(image1)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -105,7 +104,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img1model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image2)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -116,7 +115,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img2model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image3)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
@@ -127,7 +126,7 @@ predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img3model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image4)
-predicted_img = predicted_img/255
+predicted_img = predicted_img/255.00
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
 predicted_img = 255 * predicted_img
