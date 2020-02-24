@@ -5,6 +5,8 @@ from keras.datasets import mnist
 from keras.layers import Input, Dense, Conv2D, UpSampling2D
 from keras.models import Model
 import sys
+import math
+from keras import backend as K
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
