@@ -51,7 +51,7 @@ upsample.fit_generator(
 	epochs = 1,
 	validation_data = g_val,
 	validation_steps = 79, # 20259/256 rounded upward
-	use_multiprocessing=True
+	use_multiprocessing=False
 	)
 
 # Save weights
