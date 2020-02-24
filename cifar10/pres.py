@@ -31,7 +31,7 @@ img2.save('img2.png', 'PNG')
 img3 = x_test[0]
 img3 = img3 * 255
 img3 = img3.astype('uint8')
-img3 = Image.fromarray(img2, mode = 'RGB')
+img3 = Image.fromarray(img3, mode = 'RGB')
 img3 = img3.convert('L')
 img3.save('img3.png', 'PNG')
 
