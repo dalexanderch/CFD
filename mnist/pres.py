@@ -10,6 +10,10 @@ from keras.models import load_model
 # Save original
 img1 = Image.fromarray(x_test[0], 'L')
 img1.save('img1.png', 'PNG')
+img2 = Image.fromarray(x_test[1], 'L')
+img2.save('img2.png', 'PNG')
+img3 = Image.fromarray(x_test[2], 'L')
+img3.save('img3.png', 'PNG')
 
 x_train = x_train.astype('float32') / 255.
 x_test = x_test.astype('float32') / 255
@@ -34,4 +38,4 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img.save('predicted.png', 'PNG')
+predicted_img.save('predicted1.png', 'PNG')
