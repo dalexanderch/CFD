@@ -35,8 +35,12 @@ for image in x_test:
 
 x_test_small = np.array(x_test_small)
 
+dependencies = {
+     'PSNR': PSNR
+}
+
 # Load model and predict
-upsample = load_model('upclassic.h5')
+upsample = load_model('upclassic.h5', custom_objects=dependencies)
 
 
 image = x_test_small[0]
