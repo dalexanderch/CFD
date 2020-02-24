@@ -74,7 +74,7 @@ predicted_img = Image.fromarray(predicted_img, mode='L')
 predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img3classic.jpg', 'JPEG')
 
-predicted_img = np.asarray(image4s)
+predicted_img = np.asarray(image4)
 predicted_img = predicted_img/255
 predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
 predicted_img = upsample.predict(predicted_img)
