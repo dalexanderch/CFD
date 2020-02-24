@@ -2,7 +2,14 @@ from PIL import Image
 import numpy as np
 from keras.datasets import mnist
 from keras.models import load_model
+import math
+from keras import backend as K
 
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
 
 # load MNIST data
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -39,3 +46,23 @@ predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
 predicted_img.save('predicted1.png', 'PNG')
+
+image = x_test_small[1]
+image = image[0:image.shape[0], 0:image.shape[1]]
+image = image.reshape(1, image.shape[0], image.shape[1], 1 )
+predicted_img = upsample.predict(image)
+predicted_img = 255 * predicted_img
+predicted_img = predicted_img.astype('int8')
+predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
+predicted_img = Image.fromarray(predicted_img, mode='L')
+predicted_img.save('predicted2.png', 'PNG')
+
+image = x_test_small[2]
+image = image[0:image.shape[0], 0:image.shape[1]]
+image = image.reshape(1, image.shape[0], image.shape[1], 1 )
+predicted_img = upsample.predict(image)
+predicted_img = 255 * predicted_img
+predicted_img = predicted_img.astype('int8')
+predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
+predicted_img = Image.fromarray(predicted_img, mode='L')
+predicted_img.save('predicted3.png', 'PNG')
