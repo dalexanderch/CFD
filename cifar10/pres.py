@@ -20,7 +20,7 @@ img1 = x_test[0]
 img1 = img1 * 255
 img1 = img1.astype('uint8')
 img1 = Image.fromarray(img1, mode = 'RGB')
-img1 = image.convert('L')
+img1 = img1.convert('L')
 img1.save('img1.png', 'PNG')
 img2 = x_test[1]
 img2 = img2 * 255
