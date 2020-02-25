@@ -23,9 +23,9 @@ for i in range(1, 500):
     imgs.append(img)
 
 
-# # Resize
-# for i,img in enumerate(imgs):
-#     imgs[i] = img.resize((100,40), resample=Image.BILINEAR)
+# Resize
+for i,img in enumerate(imgs):
+    imgs[i] = img.resize((40,100), resample=Image.BILINEAR)
 
 
 
