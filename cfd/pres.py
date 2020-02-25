@@ -19,7 +19,7 @@ imgs = []
 for i in range(1, 500):
     img = Image.open(curr + "/data/small/data/{}.jpg".format(i))
     img = img.convert('L')
-    img.save('img{}.jpg'.format(i), 'JPEG')
+    img.save('/original/img{}.jpg'.format(i), 'JPEG')
     imgs.append(img)
 
 
@@ -46,4 +46,4 @@ for i,img in enumerate(imgs):
     predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
     predicted_img = Image.fromarray(predicted_img, mode='L')
     predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save('img{}classic.jpg'.format(i), 'GIF')
+    predicted_img.save('/classic/img{}classic.jpg'.format(i), 'GIF')
