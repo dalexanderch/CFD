@@ -19,7 +19,7 @@ imgs = []
 for i in range(1, 500):
     img = Image.open(curr + "/data/small/data/{}.jpg".format(i))
     img = img.convert('L')
-    img.save('/original/img{}.jpg'.format(i), 'JPEG')
+    img.save(curr + '/original/img{}.jpg'.format(i), 'JPEG')
     imgs.append(img)
 
 
