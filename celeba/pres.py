@@ -29,10 +29,10 @@ image4 = image4.convert('L')
 image4.save('img4.jpg', 'JPEG')
 
 # Resize
-image1 = image1.resize((100,40), resample=Image.BILINEAR)
-image2 = image2.resize((100,40), resample=Image.BILINEAR)
-image3 = image3.resize((100,40), resample=Image.BILINEAR)
-image4 = image4.resize((100,40), resample=Image.BILINEAR)
+image1 = image1.resize((109,89), resample=Image.BILINEAR)
+image2 = image2.resize((109,89), resample=Image.BILINEAR)
+image3 = image3.resize((109,89), resample=Image.BILINEAR)
+image4 = image4.resize((109,89), resample=Image.BILINEAR)
 
 # Predict
 dependencies = {
@@ -49,7 +49,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img1classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image2)
@@ -60,7 +60,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img2classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image3)
@@ -71,7 +71,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img3classic.jpg', 'JPEG')
 
 predicted_img = np.asarray(image4)
@@ -82,7 +82,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img4classic.jpg', 'JPEG')
 
 # Predict
@@ -100,7 +100,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img1model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image2)
@@ -111,7 +111,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img2model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image3)
@@ -122,7 +122,7 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img3model.jpg', 'JPEG')
 
 predicted_img = np.asarray(image4)
@@ -133,5 +133,5 @@ predicted_img = 255 * predicted_img
 predicted_img = predicted_img.astype('int8')
 predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
 predicted_img = Image.fromarray(predicted_img, mode='L')
-predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
+predicted_img = predicted_img.resize((178,218), resample=Image.BILINEAR)
 predicted_img.save('img4model.jpg', 'JPEG')
