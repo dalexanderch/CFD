@@ -19,13 +19,13 @@ imgs = []
 for i in range(1, 500):
     img = Image.open(curr + "/data/small/data/{}.jpg".format(i))
     img = img.convert('L')
-    img.save('img{}.jpg'.format(i), 'GIF')
+    img.save('img{}.jpg'.format(i), 'JPEG')
     imgs.append(img)
 
 
-# Resize
-for i,img in enumerate(imgs):
-    imgs[i] = img.resize((100,40), resample=Image.BILINEAR)
+# # Resize
+# for i,img in enumerate(imgs):
+#     imgs[i] = img.resize((100,40), resample=Image.BILINEAR)
 
 
 
