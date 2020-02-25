@@ -46,4 +46,4 @@ for i,img in enumerate(imgs):
     predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
     predicted_img = Image.fromarray(predicted_img, mode='L')
     predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save('/classic/img{}classic.jpg'.format(i), 'GIF')
+    predicted_img.save(curr + '/classic/img{}classic.jpg'.format(i), 'GIF')
