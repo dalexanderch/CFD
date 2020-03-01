@@ -15,7 +15,7 @@ def gen(it1, it2):
         Y = it2.next()
         yield X,Y
 
-class DualLoss(object):
+class DualLoss:
   def __init__(self):
     self.var = None
 
