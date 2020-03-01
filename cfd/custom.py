@@ -19,6 +19,7 @@ def gen(it1, it2):
         yield X,Y
 
 def dual(y_true, y_pred):
+    global y_prev
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if y_prev is None:
       y_prev = y_true
