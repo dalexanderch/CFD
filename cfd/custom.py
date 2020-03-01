@@ -9,23 +9,23 @@ import math
 from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
 
-# Ugly but works
-y_prev = None
-
 def gen(it1, it2):
     while True:
         X = it1.next()
         Y = it2.next()
         yield X,Y
 
-def dual(y_true, y_pred):
-    global y_prev
+class DualLoss(object):
+  def __init__(self):
+    self.var = None
+
+  def __call__(self, y_true, y_pred, sample_weight=None):
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if y_prev is None:
-      y_prev = y_true
+    if self.var is None:
+      self.var = y_true
       return mse
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    y_prev = y_true
+    self.var = y_true
     return (mse + mseprev)/2
 
 # Define our custom metric
@@ -53,6 +53,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
 x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
+dual = DualLoss()
 upsample = Model(input_img, x)
 
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
