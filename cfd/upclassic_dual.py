@@ -19,10 +19,11 @@ y_prev = None
 
 def dual_loss(y_true, y_pred, sample_weight=None):
     global y_prev
+    print("Hello World")
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if y_prev is None:
         y_prev = 5
-        return mse/10
+        return mse
     else:
         mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
         y_prev = y_true
