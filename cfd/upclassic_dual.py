@@ -17,17 +17,20 @@ def gen(it1, it2):
 
 y_prev = None
 
-def dual_loss(y_true, y_pred, sample_weight=None):
-    global y_prev
-    print("Hello World")
+class DualLoss:
+  def __init__(self):
+    print("Init")
+    self.var = None
+
+  def __call__(self, y_true, y_pred, sample_weight=None):
+    print("Call")
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if y_prev is None:
-        y_prev = 5
-        return mse
-    else:
-        mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
-        y_prev = y_true
-        return (mse + mseprev)/10
+    if self.var is None:
+      self.var = y_true
+      return mse
+    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
+    self.var = y_true
+    return (mse + mseprev)/2
 # class DualLoss:
 #   def __init__(self):
 #     self.var = None
@@ -67,8 +70,8 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 # x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 # x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 upsample = Model(input_img, x)
-
-upsample.compile(optimizer='adadelta', loss=dual_loss, metrics=[PSNR])
+dual = DualLoss()
+upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
