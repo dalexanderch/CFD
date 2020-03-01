@@ -19,7 +19,7 @@ class DualLoss:
   def __init__(self):
     self.var = None
 
-  def __call__(self, y_true, y_pred):
+  def __call__(self, y_true, y_pred, sample_weight=None):
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if self.var is None:
       self.var = y_true
