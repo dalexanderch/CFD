@@ -26,10 +26,10 @@ class DualLoss:
     print("Call")
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if self.var is None:
-      self.var = y_true
+      self.var = K.variable(y_true)
       return mse
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    self.var = y_true
+    K.update(self.var, y_true)
     return (mse + mseprev)/2
 # class DualLoss:
 #   def __init__(self):
