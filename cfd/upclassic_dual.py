@@ -17,7 +17,7 @@ def gen(it1, it2):
 
 y_prev = None
 
-def dual_loss(self, y_true, y_pred, sample_weight=None):
+def dual_loss(y_true, y_pred, sample_weight=None):
     global y_prev
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if y_prev is None:
