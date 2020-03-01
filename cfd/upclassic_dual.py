@@ -26,8 +26,9 @@ class DualLoss:
     print("Call")
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if self.var is None:
-      self.var = K.variable(y_true)
-      return mse
+        z = np.zeros((200,80))
+        self.var = K.variable(z)
+        return mse
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
     K.update(self.var, y_true)
     return (mse + mseprev)/2
@@ -72,24 +73,24 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 upsample = Model(input_img, x)
 print(upsample.summary())
 
-#dual = DualLoss()
-# upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
-#
-# # Train
-# g_train = gen(train_small_it, train_it)
-# g_val = gen(val_small_it, val_it)
-#
-# upsample.fit_generator(
-# 	generator = g_train,
-# 	steps_per_epoch = math.ceil(45000/batch_size),
-# 	epochs = epochs,
-# 	validation_data = g_val,
-# 	validation_steps = math.ceil(4500/batch_size),
-# 	use_multiprocessing=True
-# 	)
-#
-# # Save weights
-# # upsample.save("upsample.h5")
-#
-# # Evaluate
-# print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
+dual = DualLoss()
+upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
+
+# Train
+g_train = gen(train_small_it, train_it)
+g_val = gen(val_small_it, val_it)
+
+upsample.fit_generator(
+	generator = g_train,
+	steps_per_epoch = math.ceil(45000/batch_size),
+	epochs = epochs,
+	validation_data = g_val,
+	validation_steps = math.ceil(4500/batch_size),
+	use_multiprocessing=True
+	)
+
+# Save weights
+# upsample.save("upsample.h5")
+
+# Evaluate
+print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
