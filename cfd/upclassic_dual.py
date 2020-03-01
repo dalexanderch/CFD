@@ -25,7 +25,7 @@ def dual_loss(y_true, y_pred, sample_weight=None):
       return mse
     mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
     y_prev = y_true
-    return (mse + mseprev)/2
+    return (mse + mseprev)/10
 # class DualLoss:
 #   def __init__(self):
 #     self.var = None
