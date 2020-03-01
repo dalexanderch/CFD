@@ -70,9 +70,10 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 # x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 # x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 upsample = Model(input_img, x)
+print(upsample.summary())
+
 dual = DualLoss()
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
-print(upsample.summary())
 
 # Train
 g_train = gen(train_small_it, train_it)
