@@ -72,24 +72,24 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 upsample = Model(input_img, x)
 print(upsample.summary())
 
-dual = DualLoss()
-upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
-
-# Train
-g_train = gen(train_small_it, train_it)
-g_val = gen(val_small_it, val_it)
-
-upsample.fit_generator(
-	generator = g_train,
-	steps_per_epoch = math.ceil(45000/batch_size),
-	epochs = epochs,
-	validation_data = g_val,
-	validation_steps = math.ceil(4500/batch_size),
-	use_multiprocessing=True
-	)
-
-# Save weights
-# upsample.save("upsample.h5")
-
-# Evaluate
-print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
+#dual = DualLoss()
+# upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
+#
+# # Train
+# g_train = gen(train_small_it, train_it)
+# g_val = gen(val_small_it, val_it)
+#
+# upsample.fit_generator(
+# 	generator = g_train,
+# 	steps_per_epoch = math.ceil(45000/batch_size),
+# 	epochs = epochs,
+# 	validation_data = g_val,
+# 	validation_steps = math.ceil(4500/batch_size),
+# 	use_multiprocessing=True
+# 	)
+#
+# # Save weights
+# # upsample.save("upsample.h5")
+#
+# # Evaluate
+# print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
