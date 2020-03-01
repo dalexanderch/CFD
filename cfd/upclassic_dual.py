@@ -15,18 +15,29 @@ def gen(it1, it2):
         Y = it2.next()
         yield X,Y
 
-class DualLoss:
-  def __init__(self):
-    self.var = None
+y_prev = None
 
-  def __call__(self, y_true, y_pred, sample_weight=None):
+def dual_loss(self, y_true, y_pred, sample_weight=None):
+    global y_prev
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if self.var is None:
-      self.var = y_true
+    if y_prev is None:
+      y_prev = y_true
       return mse
-    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    self.var = y_true
+    mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
+    y_prev = y_true
     return (mse + mseprev)/2
+# class DualLoss:
+#   def __init__(self):
+#     self.var = None
+#
+#   def __call__(self, y_true, y_pred, sample_weight=None):
+#     mse = K.mean(K.square(y_true - y_pred), axis=-1)
+#     if self.var is None:
+#       self.var = y_true
+#       return mse
+#     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
+#     self.var = y_true
+#     return (mse + mseprev)/2
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
