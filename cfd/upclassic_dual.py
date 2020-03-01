@@ -32,20 +32,7 @@ class DualLoss:
     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
     K.update(self.var, y_true)
     return (mse + mseprev)/2
-# class DualLoss:
-#   def __init__(self):
-#     self.var = None
-#
-#   def __call__(self, y_true, y_pred, sample_weight=None):
-#     mse = K.mean(K.square(y_true - y_pred), axis=-1)
-#     if self.var is None:
-#       self.var = y_true
-#       return mse
-#     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-#     self.var = y_true
-#     return (mse + mseprev)/2
 
-# Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
@@ -67,11 +54,7 @@ val_small_it =  datagen.flow_from_directory(directory='data/small/', target_size
 # Build model
 input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-# x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
-# x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
-# x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 upsample = Model(input_img, x)
-print(upsample.summary())
 
 dual = DualLoss()
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
