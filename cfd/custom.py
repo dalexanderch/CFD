@@ -9,8 +9,9 @@ import math
 from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
 
-# Ugly but true
-var y_prev = None
+# Ugly but works
+y_prev = None
+
 def gen(it1, it2):
     while True:
         X = it1.next()
