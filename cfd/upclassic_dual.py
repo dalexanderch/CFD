@@ -19,11 +19,9 @@ y_prev = None
 
 class DualLoss:
   def __init__(self):
-    print("Init")
     self.var = None
 
   def __call__(self, y_true, y_pred, sample_weight=None):
-    print("Call")
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
     if self.var is None:
         z = np.zeros((200,80))
