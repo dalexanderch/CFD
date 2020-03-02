@@ -72,7 +72,7 @@ upsample.fit_generator(
 	steps_per_epoch = math.ceil(180000/batch_size),
 	epochs = epochs,
 	validation_data = g_val,
-	validation_steps = math.ceil(18000/batch_size), 
+	validation_steps = math.ceil(18000/batch_size),
 	use_multiprocessing=True
 	)
 
@@ -80,4 +80,4 @@ upsample.fit_generator(
 upsample.save("dual_model.h5")
 
 # Evaluate
-print(upsample.evaluate_generator(generator = g_val, steps=9000, use_multiprocessing=True))
+print(upsample.evaluate_generator(generator = g_val, steps=18000, use_multiprocessing=True))
