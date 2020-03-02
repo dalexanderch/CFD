@@ -10,26 +10,43 @@ from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
 
 def gen(it1, it2):
+    first = True
     while True:
-        X = it1.next()
-        Y = it2.next()
-        yield X,Y
+        if first:
+            X = it1.next()
+            Y = it2.next()
+            previous = Y
+            Y = np.stack((previous, Y), axis = 0)
+            yield X,Y
+        else:
+            first = false
+            X = it1.next()
+            Y = it1.next()
+            Z = np.stack((previous,Y), axis=0)
+            previous = Y
+            yield X,Z
 
-y_prev = None
+def dual(y_true,y_pred):
+    y_prev = y_true[0]
+    mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
+    y_current = y_true[1]
+    mse = K.mean(K.square(y_prev - y_pred), axis=-1)
+    return mse + mseprev/2
 
-class DualLoss:
-  def __init__(self):
-    self.var = None
 
-  def __call__(self, y_true, y_pred, sample_weight=None):
-    mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if self.var is None:
-        z = np.zeros((200,80))
-        self.var = K.variable(z)
-        return mse
-    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    self.var = K.update(self.var, y_true)
-    return (mse + mseprev)/2
+# class DualLoss:
+#   def __init__(self):
+#     self.var = None
+#
+#   def __call__(self, y_true, y_pred, sample_weight=None):
+#     mse = K.mean(K.square(y_true - y_pred), axis=-1)
+#     if self.var is None:
+#         z = np.zeros((200,80))
+#         self.var = K.variable(z)
+#         return mse
+#     mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
+#     self.var = K.update(self.var, y_true)
+#     return (mse + mseprev)/2
 
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
@@ -54,7 +71,6 @@ input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` im
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 upsample = Model(input_img, x)
 
-dual = DualLoss()
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
 
 # Train
