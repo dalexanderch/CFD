@@ -15,7 +15,8 @@ def gen(it1, it2):
     first = True
     counter = 0
     while True:
-        print(counter+1)
+        counter = counter + 1
+        print(counter)
         if first:
             X = it1.next()
             Y = it2.next()
