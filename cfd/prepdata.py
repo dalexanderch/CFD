@@ -29,7 +29,7 @@ for index, item in enumerate(dirs):
 	print(index)
 	im = Image.open(curr + path + item)
 	im = im.convert('L')
-	imResize.save(curr + pathsave + item, 'JPEG')
+	im.save(curr + pathsave + item, 'JPEG')
 
 end = time.time()
 print("Time elapsed : {}".format(end - start))
