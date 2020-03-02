@@ -32,9 +32,9 @@ def gen(it1, it2):
             update_x = True
             update_y = False
 
-def dual(y_true,y_pred):
-    mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    return mse
+# def dual(y_true,y_pred):
+#     mse = K.mean(K.square(y_true - y_pred), axis=-1)
+#     return mse
 
 
 # class DualLoss:
@@ -74,7 +74,7 @@ input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` im
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 upsample = Model(input_img, x)
 
-upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss="mean_squared_error", metrics=[PSNR])
 
 # Train
 g_train = gen(train_small_it, train_it)
@@ -90,7 +90,7 @@ upsample.fit_generator(
 	)
 
 # Save weights
-upsample.save("updual_classic.h5")
+upsample.save("dual_classic.h5")
 
 # Evaluate
 print(upsample.evaluate_generator(generator = g_val, steps=9000, use_multiprocessing=True))
