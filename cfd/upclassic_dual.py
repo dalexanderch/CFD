@@ -82,10 +82,10 @@ g_val = gen(val_small_it, val_it)
 
 upsample.fit_generator(
 	generator = g_train,
-	steps_per_epoch = math.ceil(1000/batch_size),
+	steps_per_epoch = math.ceil(90000/batch_size),
 	epochs = epochs,
 	validation_data = g_val,
-	validation_steps = math.ceil(1000/batch_size),
+	validation_steps = math.ceil(9000/batch_size),
 	use_multiprocessing=True
 	)
 
@@ -93,4 +93,4 @@ upsample.fit_generator(
 upsample.save("updual_classic.h5")
 
 # Evaluate
-print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
+print(upsample.evaluate_generator(generator = g_val, steps=9000, use_multiprocessing=True))
