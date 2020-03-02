@@ -46,7 +46,7 @@ for i,img in enumerate(imgs):
     predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
     predicted_img = Image.fromarray(predicted_img, mode='L')
     predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save(curr + '/classic/img{}classic.gif'.format(i), 'GIF')
+    predicted_img.save(curr + '/classic/img{}.gif'.format(i), 'GIF')
 
 # Load model and predict
 upsample = load_model('upsample.h5', custom_objects=dependencies)
@@ -60,31 +60,4 @@ for i,img in enumerate(imgs):
     predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
     predicted_img = Image.fromarray(predicted_img, mode='L')
     predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save(curr + '/model/img{}model.gif'.format(i), 'GIF')
-
-# Load model and predict
-upsample = load_model('dual_classic.h5', custom_objects=dependencies)
-for i,img in enumerate(imgs):
-    predicted_img = np.asarray(img)
-    predicted_img = predicted_img/255.00
-    predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
-    predicted_img = upsample.predict(predicted_img)
-    predicted_img = 255 * predicted_img
-    predicted_img = predicted_img.astype('int8')
-    predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
-    predicted_img = Image.fromarray(predicted_img, mode='L')
-    predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save(curr + '/dualclassic/img{}.gif'.format(i), 'GIF')
-
-upsample = load_model('dual_model.h5', custom_objects=dependencies)
-for i,img in enumerate(imgs):
-    predicted_img = np.asarray(img)
-    predicted_img = predicted_img/255.00
-    predicted_img = predicted_img.reshape(1, predicted_img.shape[0], predicted_img.shape[1], 1 )
-    predicted_img = upsample.predict(predicted_img)
-    predicted_img = 255 * predicted_img
-    predicted_img = predicted_img.astype('int8')
-    predicted_img = predicted_img.reshape(predicted_img.shape[1], predicted_img.shape[2])
-    predicted_img = Image.fromarray(predicted_img, mode='L')
-    predicted_img = predicted_img.resize((200,80), resample=Image.BILINEAR)
-    predicted_img.save(curr + '/dualmodel/img{}.gif'.format(i), 'GIF')
+    predicted_img.save(curr + '/model/img{}.gif'.format(i), 'GIF')
