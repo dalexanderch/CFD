@@ -53,7 +53,7 @@ upsample.fit_generator(
 	steps_per_epoch = math.ceil(90000/batch_size),
 	epochs = epochs,
 	validation_data = g_val,
-	validation_steps = math.ceil(10000/batch_size)
+	validation_steps = math.ceil(10000/batch_size),
 	use_multiprocessing=True
 	)
 
