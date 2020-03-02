@@ -69,10 +69,10 @@ g_val = gen(val_small_it, val_it)
 
 upsample.fit_generator(
 	generator = g_train,
-	steps_per_epoch = 90000, # 183240/32 rounded upward
+	steps_per_epoch = math.ceil(90000/batch_size),
 	epochs = epochs,
 	validation_data = g_val,
-	validation_steps = 9000, # 20259/256 rounded upward
+	validation_steps = math.ceil(9000/batch_size), 
 	use_multiprocessing=True
 	)
 
