@@ -4,8 +4,8 @@ import time
 
 # Run only once to downscale the images and convert to grayscale once and for all
 curr = os.getcwd()
-path = "/data/small/small/"
-pathsave = "/data/small/small/"
+path = "/data/small/data/"
+pathsave = "/data/small/data/"
 dirs = os.listdir( curr + path )
 start = time.time()
 
@@ -21,8 +21,8 @@ print("Time elapsed : {}".format(end - start))
 
 # Run only once to downscale the images and convert to grayscale once and for all
 curr = os.getcwd()
-path = "/data/big/big/"
-pathsave = "/data/big/big/"
+path = "/data/big/data/"
+pathsave = "/data/big/data/"
 dirs = os.listdir( curr + path )
 start = time.time()
 
