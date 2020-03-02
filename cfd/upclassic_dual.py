@@ -25,7 +25,7 @@ def gen(it1, it2):
             yield X,Y
             update_x = False
             update_y = True
-        elif (update_x == False and update_y = True):
+        elif (update_x == False and update_y == True):
             Y = it2.next()
             yield X,Y
             update_x = True
