@@ -10,23 +10,31 @@ from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
 
 def gen(it1, it2):
+    update_x = True
+    update_y = True
+    first = True
     while True:
-        X = it1.next()
-        Y = it2.next()
-        yield X,Y
+        if first:
+            X = it1.next()
+            Y = it2.next()
+            yield X,Y
+            update_x = True
+            update_y = False
+            first = False
+        elif (update_x == True and update_y == False):
+            X = it1.next()
+            yield X,Y
+            update_x = False
+            update_y = True
+        elif (update_x == False and update_y == True):
+            Y = it2.next()
+            yield X,Y
+            update_x = True
+            update_y = False
 
-class DualLoss:
-  def __init__(self):
-    self.var = None
-
-  def __call__(self, y_true, y_pred, sample_weight=None):
+def dual(y_true,y_pred):
     mse = K.mean(K.square(y_true - y_pred), axis=-1)
-    if self.var is None:
-      self.var = y_true
-      return mse
-    mseprev = K.mean(K.square(self.var - y_pred), axis=-1)
-    self.var = y_true
-    return (mse + mseprev)/2
+    return mse
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
@@ -53,7 +61,6 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
 x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
-dual = DualLoss()
 upsample = Model(input_img, x)
 
 upsample.compile(optimizer='adadelta', loss=dual, metrics=[PSNR])
