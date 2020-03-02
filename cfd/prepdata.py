@@ -13,8 +13,7 @@ for index, item in enumerate(dirs):
 	print(index)
 	im = Image.open(curr + path + item)
 	im = im.convert('L')
-	imResize = im.resize((100,40), Image.BILINEAR)
-	imResize.save(curr + pathsave + item, 'JPEG')
+	im.save(curr + pathsave + item, 'JPEG')
 
 end = time.time()
 print("Time elapsed : {}".format(end - start))
@@ -30,7 +29,6 @@ for index, item in enumerate(dirs):
 	print(index)
 	im = Image.open(curr + path + item)
 	im = im.convert('L')
-	imResize = im.resize((100,40), Image.BILINEAR)
 	imResize.save(curr + pathsave + item, 'JPEG')
 
 end = time.time()
