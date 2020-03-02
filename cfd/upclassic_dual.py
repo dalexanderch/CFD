@@ -8,30 +8,32 @@ import sys
 import math
 from keras import backend as K
 from keras_preprocessing.image import ImageDataGenerator
-
+# x1 y1 x2 y1 x2 y2 x3 y2 x3 y3
 def gen(it1, it2):
+    update_x = True
+    update_y = True
     first = True
     while True:
         if first:
             X = it1.next()
             Y = it2.next()
-            previous = Y
-            Y = np.stack((previous, Y), axis = 0)
             yield X,Y
-        else:
-            first = false
+            update_x = True
+            update_y = False
+        elif update_x == True && update_y == False:
             X = it1.next()
-            Y = it1.next()
-            Z = np.stack((previous,Y), axis=0)
-            previous = Y
-            yield X,Z
+            yield X,Y
+            update_x = False
+            update_y = True
+        elif update_x == False && update_y = True:
+            Y = it2.next()
+            yield X,Y
+            update_x = True
+            update_y = False
 
 def dual(y_true,y_pred):
-    y_prev = y_true[0]
-    mseprev = K.mean(K.square(y_prev - y_pred), axis=-1)
-    y_current = y_true[1]
-    mse = K.mean(K.square(y_prev - y_pred), axis=-1)
-    return mse + mseprev/2
+    mse = K.mean(K.square(y_true - y_pred), axis=-1)
+    return mse
 
 
 # class DualLoss:
