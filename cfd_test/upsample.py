@@ -31,8 +31,8 @@ datagen = ImageDataGenerator(validation_split=0.1, rescale=1./255)
 # Prepare training and validation  datasets
 train_it = datagen.flow_from_directory(directory='data/big/', target_size=(200,80), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training')
 val_it = datagen.flow_from_directory(directory='data/big/', target_size=(200,80), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation')
-train_small_it  = datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training', interpolation = 'bilinear')
-val_small_it =  datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation', interpolation = 'bilinear')
+train_small_it  = datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='training')
+val_small_it =  datagen.flow_from_directory(directory='data/small/', target_size=(100,40), shuffle=False, color_mode='grayscale', class_mode=None, batch_size=batch_size, subset='validation')
 
 # Build model
 input_img = Input(shape=(100, 40, 1))  # adapt this if using `channels_first` image data format
@@ -50,10 +50,10 @@ g_val = gen(val_small_it, val_it)
 
 upsample.fit_generator(
 	generator = g_train,
-	steps_per_epoch = 5727, # 183240/32 rounded upward
+	steps_per_epoch = math.ceil(90000/batch_size),
 	epochs = epochs,
 	validation_data = g_val,
-	validation_steps = 634, # 20259/256 rounded upward
+	validation_steps = math.ceil(10000/batch_size)
 	use_multiprocessing=True
 	)
 
@@ -61,4 +61,4 @@ upsample.fit_generator(
 upsample.save("upsample.h5")
 
 # Evaluate
-print(upsample.evaluate_generator(generator = g_val, steps=634, use_multiprocessing=True))
+print(upsample.evaluate_generator(generator = g_val, steps=math.ceil(10000/batch_size), use_multiprocessing=True))
