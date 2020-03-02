@@ -13,10 +13,7 @@ def gen(it1, it2):
     update_x = True
     update_y = True
     first = True
-    counter = 0
     while True:
-        counter = counter + 1
-        print(counter)
         if first:
             X = it1.next()
             Y = it2.next()
