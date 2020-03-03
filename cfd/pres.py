@@ -19,9 +19,12 @@ imgs = []
 for i in range(1, 500):
     img = Image.open(curr + "/data/small/data/{}.jpg".format(i))
     img = img.convert('L')
-    img.save(curr + '/original/img{}.gif'.format(i), 'GIF')
     imgs.append(img)
 
+for i in range(1, 500):
+    img = Image.open(curr + "/data/big/data/{}.jpg".format(i))
+    img = img.convert('L')
+    img.save(curr + '/original/img{}.gif'.format(i), 'GIF')
 
 # Resize
 for i,img in enumerate(imgs):
