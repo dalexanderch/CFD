@@ -14,7 +14,7 @@ epochs = 32
 batch_size = 32
 # Compute steps per epochs
 path = os.getcwd() + "/small"
-files = [f for f in glob.glob(path + "**/*.dat"]
+files = [f for f in glob.glob(path + "**/*.dat")]
 print(files[0])
 steps_per_epoch = math.floor(len(files)/batch_size)
 
