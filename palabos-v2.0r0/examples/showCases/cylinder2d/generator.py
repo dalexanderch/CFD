@@ -20,12 +20,12 @@ def image_generator(batch_size = 32):
     while True:
           # Small
           path = os.getcwd() + "/small"
-          files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
+          files = [f for f in glob.glob(path + "**/*.dat")]
           files = sorted_nicely(files)
           x_paths  = files[i:i+batch_size]
           # Big
           path = os.getcwd() + "/big"
-          files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
+          files = [f for f in glob.glob(path + "**/*.dat")]
           files = sorted_nicely(files)   
           y_paths  = files[i:i+batch_size]
           
