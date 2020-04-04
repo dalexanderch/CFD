@@ -11,7 +11,7 @@ from generator import image_generator
 
 # Constants
 epochs = 32
-batch_size = 32
+batch_size = 1
 # Compute steps per epochs
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.dat")]
