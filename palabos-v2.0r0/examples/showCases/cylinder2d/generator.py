@@ -10,7 +10,7 @@ def sorted_nicely( l ):
     return sorted(l, key = alphanum_key)
 
 def read(file, width, height):
-    data = np.loadtxt(file)
+    data = np.loadtxt(file, dtype=np.float32)
     data = np.resize(data, (width, height))
     data = data.transpose()
     return data
