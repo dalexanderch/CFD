@@ -11,14 +11,14 @@ from generator import image_generator
 
 # Constants
 epochs = 32
-batch_size = 8
+batch_size = 32
 # Compute steps per epochs
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.dat")]
 steps_per_epoch = math.floor(len(files)/batch_size)
 
 # Build generator
-g = image_generator(32)
+g = image_generator(len(files), 32)
 
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
@@ -31,4 +31,7 @@ upsample.fit_generator(g,
                 steps_per_epoch=steps_per_epoch,
                 epochs = epochs,
                 shuffle=True,
+                workers=8,
+                max_queue_size=10,
+                use_multiprocessing=True
                 )
