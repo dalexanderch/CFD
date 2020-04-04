@@ -5,7 +5,7 @@
  * 1010 Lausanne, Switzerland
  * E-mail contact: contact@flowkit.com
  *
- * The most recent release of Palabos can be downloaded at 
+ * The most recent release of Palabos can be downloaded at
  * <http://www.palabos.org/>
  *
  * The library Palabos is free software: you can redistribute it and/or
@@ -190,7 +190,7 @@ void writeVTK(MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
 }
 
 void writeRawData(MultiBlockLattice2D<T,DESCRIPTOR>& lattice,
-              IncomprFlowParam<T> const& parameters, plint iter) 
+              IncomprFlowParam<T> const& parameters, plint iter)
 {
     T dx = parameters.getDeltaX();
     T dt = parameters.getDeltaT();
@@ -223,7 +223,7 @@ int main(int argc, char* argv[]) {
             Re,   // Re
             diameter, // N
             lx,       // lx
-            ly        // ly 
+            ly        // ly
     );
     // const T logT     = (T)0.02;
     const T imSave   = (T)0.02; // 0.06
@@ -248,8 +248,8 @@ int main(int argc, char* argv[]) {
         //   and getStoredAverageDensity) correspond to the previous time iT-1.
 
        if (iT%parameters.nStep(imSave)==0) {
-            // writeRawData(lattice, parameters, iT);
-            writeGif(lattice, iT);
+            writeRawData(lattice, parameters, iT);
+            // writeGif(lattice, iT);
         }
 
         // if (iT%parameters.nStep(vtkSave)==0 && iT>0) {
@@ -274,6 +274,6 @@ int main(int argc, char* argv[]) {
         //           << getStoredAverageDensity<T>(lattice) << endl;
         // }
     }
-    
+
     delete boundaryCondition;
 }
