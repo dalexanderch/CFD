@@ -45,18 +45,18 @@ for index,sample in enumerate(samples):
 
     # rename files
 
-    path = "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/small"
+    path = os.getcwd() + "/small"
     files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
     max = len(files)
 
-    path = "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/tmp"
+    path = os.getcwd() + "/tmp"
     files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
     n = max + 1
     files = sorted_nicely(files)[1:-1]
     for f in files:
         newpath = "{}/{}.dat".format(os.path.dirname(f),n)
         os.rename(f,newpath)
-        shutil.move(newpath, "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/small/{}.dat".format(n))
+        shutil.move(newpath, os.getcwd() + "/small/{}.dat".format(n))
         n = n + 1
 
     # clean tmp
@@ -87,18 +87,18 @@ for index,sample in enumerate(samples):
 
     # rename files
 
-    path = "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/big"
+    path = os.getcwd() + "/big"
     files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
     max = len(files)
 
-    path = "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/tmp"
+    path = os.getcwd() + "/tmp"
     files = [f for f in glob.glob(path + "**/*.dat", recursive=True)]
     n = max + 1
     files = sorted_nicely(files)[1:-1]
     for f in files:
         newpath = "{}/{}.dat".format(os.path.dirname(f),n)
         os.rename(f,newpath)
-        shutil.move(newpath, "/home/david/Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d/big/{}.dat".format(n))
+        shutil.move(newpath, os.getcwd() + "/big/{}.dat".format(n))
         n = n + 1
     # clean tmp
     cmd = "cd tmp;rm *"
