@@ -70,6 +70,3 @@ def image_generator(n, batch_size = 32):
           batch_y = np.expand_dims(batch_y, axis=3)
         
           yield(batch_x, batch_y)
-          
-          
-

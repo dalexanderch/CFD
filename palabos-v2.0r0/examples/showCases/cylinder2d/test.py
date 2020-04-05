@@ -1,4 +1,4 @@
- #!/usr/bin/env python -W ignore::FutureWarning
+#!/usr/bin/env python -W ignore::FutureWarning
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import glob
@@ -7,11 +7,12 @@ import math
 from keras.layers import Input, UpSampling2D, Conv2D
 from keras.models import Model
 from generator import image_generator
-
+import sys
 
 # Constants
-epochs = 10
-batch_size = 32
+epochs = int(sys.argv[1])
+batch_size = int(sys.argv[2])
+
 # Compute steps per epochs
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.dat")]
@@ -37,5 +38,4 @@ upsample.fit_generator(g,
                 shuffle=True,
                 workers=8,
                 max_queue_size=10,
-                use_multiprocessing=True
                 )
