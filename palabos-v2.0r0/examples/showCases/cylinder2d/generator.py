@@ -37,8 +37,8 @@ def read(file, width, height):
     return data
 
 @threadsafe_generator
-def image_generator(n, batch_size = 32):
-    i = 0
+def image_generator(start, n, batch_size = 32):
+    i = start
     while True:
           # Small
           path = os.getcwd() + "/small"
