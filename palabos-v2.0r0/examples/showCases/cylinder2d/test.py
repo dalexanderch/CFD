@@ -4,13 +4,13 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import glob
 import os
 import math
-from keras.layers import Input, UpSampling2D
+from keras.layers import Input, UpSampling2D, Conv2D
 from keras.models import Model
 from generator import image_generator
 
 
 # Constants
-epochs = 32
+epochs = 10
 batch_size = 32
 # Compute steps per epochs
 path = os.getcwd() + "/small"
@@ -23,6 +23,10 @@ g = image_generator(len(files), 32)
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
+x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
+x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
+x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
+
 upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error')
 
