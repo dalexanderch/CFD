@@ -37,5 +37,5 @@ upsample.fit_generator(g,
                 shuffle=True,
                 workers=8,
                 max_queue_size=10,
-                # use_multiprocessing=True
+                use_multiprocessing=True
                 )

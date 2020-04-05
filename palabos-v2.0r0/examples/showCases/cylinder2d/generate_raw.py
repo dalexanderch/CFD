@@ -13,7 +13,7 @@ def sorted_nicely( l ):
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
     return sorted(l, key = alphanum_key)
 
-# Arguments | ex : python3 ./generate_raw.py 10 2 600 20 20 6 2
+# Arguments | ex : python3 ./generate_raw.py 2 2 600 20 20 6 2
 # cd Documents/CFD/palabos-v2.0r0/examples/showCases/cylinder2d
 numBatches = int(sys.argv[1])
 upRate = int(sys.argv[2]) # big = upRate * n
