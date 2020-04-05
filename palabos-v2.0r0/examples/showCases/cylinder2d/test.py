@@ -50,4 +50,5 @@ upsample.fit_generator(g_train,
                 max_queue_size=10,
                 validation_data = g_test,
                 validation_steps = validation_steps
+                use_multiprocessing = True
                 )
