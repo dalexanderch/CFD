@@ -1,14 +1,15 @@
 import os
 import numpy as np
 from keras.models import load_model
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import glob
 import re
 import matplotlib.animation as animation
 from keras import backend as K
 import math
-import matplotlib
-matplotlib.use('Agg')
+
 
 
 
