@@ -7,6 +7,10 @@ import re
 import matplotlib.animation as animation
 from keras import backend as K
 import math
+import matplotlib
+matplotlib.use('Agg')
+
+
 
 def sorted_nicely( l ):
     """ Sort the given iterable in the way that humans expect."""
@@ -79,6 +83,7 @@ path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
 files = sorted_nicely(files)
 files = files[0:499]
+
 data = []
 for file in files:
     tmp = np.load(file)
