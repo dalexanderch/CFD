@@ -78,7 +78,7 @@ ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
 ani.save('classic.mp4')
 
 # Load model
-upsample = load_model("model.h5", )
+upsample = load_model("model.h5", custom_objects=dependencies )
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
