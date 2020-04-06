@@ -28,6 +28,7 @@ dependencies = {
 path = os.getcwd() + "/big"
 files = [f for f in glob.glob(path + "**/*.npy")]
 files = sorted_nicely(files)
+files = files[0:499]
 
 data = []
 for file in files:
@@ -42,7 +43,7 @@ for d in data:
 #Show
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
-ani.save('original.mp4')
+ani.save('original.gif', writer="imagemagick", fps=60)
 
 # Load model
 upsample = load_model("classic.h5", custom_objects=dependencies)
@@ -50,6 +51,7 @@ upsample = load_model("classic.h5", custom_objects=dependencies)
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
 files = sorted_nicely(files)
+files = files[0:499]
 
 data = []
 for file in files:
@@ -68,7 +70,7 @@ for d in data:
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
-ani.save('classic.mp4')
+ani.save('classic.gif', writer="imagemagick", fps=60)
 
 # Load model
 upsample = load_model("model.h5", )
@@ -76,7 +78,7 @@ upsample = load_model("model.h5", )
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
 files = sorted_nicely(files)
-
+files = files[0:499]
 data = []
 for file in files:
     tmp = np.load(file)
@@ -94,4 +96,4 @@ for d in data:
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
-ani.save('model.mp4')
+ani.save('model.gif', writer="imagemagick", fps=60)
