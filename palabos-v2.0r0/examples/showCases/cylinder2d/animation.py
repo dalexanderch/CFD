@@ -24,6 +24,27 @@ dependencies = {
      'PSNR': PSNR
 }
 
+# Prepare data
+path = os.getcwd() + "/big"
+files = [f for f in glob.glob(path + "**/*.npy")]
+files = sorted_nicely(files)
+
+data = []
+for file in files:
+    tmp = np.load(file)
+    data.append(tmp)
+
+fig = plt.figure()
+ims = []
+for d in data:
+    im = plt.imshow(d, animated=True)
+    ims.append([im])
+#Show
+ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
+                                repeat_delay=1000)
+
+ani.save('original.mp4')
+plt.show()
 # Load model
 upsample = load_model("classic.h5", custom_objects=dependencies)
 # Prepare data
@@ -52,7 +73,7 @@ ani.save('classic.mp4')
 plt.show()
 
 # Load model
-upsample = load_model("model.h5", custom_objects=dependencies)
+upsample = load_model("model.h5", )
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
