@@ -51,3 +51,9 @@ upsample.fit_generator(generator = seq_train,
                 max_queue_size=10,
                 use_multiprocessing = False
                 )
+
+# Save weights
+upsample.save("test.h5")
+
+# Evaluate
+print(upsample.evaluate_generator(generator = seq_val, steps=validation_steps, use_multiprocessing=True))
