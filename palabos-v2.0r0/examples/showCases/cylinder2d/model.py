@@ -9,8 +9,15 @@ from keras.models import Model
 from sequence import data
 import sys
 from sklearn.model_selection import train_test_split
+from keras import backend as K
 
 
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+    
 # Constants
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
@@ -38,7 +45,7 @@ x = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error')
+upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 #Train the model
 upsample.fit_generator(generator = seq_train,
@@ -53,7 +60,7 @@ upsample.fit_generator(generator = seq_train,
                 )
 
 # Save weights
-upsample.save("test.h5")
+upsample.save("model.h5")
 
 # Evaluate
 print(upsample.evaluate_generator(generator = seq_val, steps=validation_steps, use_multiprocessing=True))

@@ -1,101 +1,64 @@
-from sklearn.metrics import mean_squared_error
-from PIL import Image
-import numpy as np
-from keras.datasets import cifar10
-from keras.layers import Input, Dense, Conv2D, UpSampling2D
-from keras.models import Model
-import sys
+#!/usr/bin/env python -W ignore::FutureWarning
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+import glob
+import os
 import math
+from keras.layers import Input, UpSampling2D
+from keras.models import Model
+from sequence import data
+import sys
+from sklearn.model_selection import train_test_split
 from keras import backend as K
+
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
-
-
-# parameters
+    
+# Constants
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
 
-# load  data
-(x_train, _), (x_test, _) = cifar10.load_data()
+# Compute steps per epochs
+path = os.getcwd() + "/small"
+files_x = [f for f in glob.glob(path + "**/*.npy")]
+path = os.getcwd() + "/big"
+files_y = [f for f in glob.glob(path + "**/*.npy")]
+x_train, x_val, y_train, y_val = train_test_split(files_x, files_y, test_size=0.1)
 
+# Build Sequence
+seq_train = data(x_train, y_train, batch_size)
+seq_val =  data(x_val, y_val, batch_size)
 
-# Convert to grayscale
-x_train_tmp = []
-for image in x_train:
-	image = image * 255
-	image = image.astype('uint8')
-	image = Image.fromarray(image, mode = 'RGB')
-	image = image.convert('L')
-	image = np.asarray(image)
-	x_train_tmp.append(image)
-
-x_train = np.array(x_train_tmp)
-
-x_test_tmp = []
-for image in x_test:
-	image = image * 255
-	image = image.astype('uint8')
-	image = Image.fromarray(image, mode = 'RGB')
-	image = image.convert('L')
-	image = np.asarray(image)
-	x_test_tmp.append(image)
-
-x_test = np.array(x_test_tmp)
-
-
-
-x_train = x_train.astype('float32') / 255
-x_test = x_test.astype('float32') / 255
-
-# Resize the data
-x_train_small = []
-x_test_small = []
-for image in x_train:
-	image = Image.fromarray(image, mode='F')
-	image = image.resize((16,16), resample=Image.BILINEAR)
-	x_train_small.append(np.asarray(image))
-
-x_train_small = np.array(x_train_small)
-
-for image in x_test:
-	image = Image.fromarray(image, mode='F')
-	image = image.resize((16,16), resample=Image.BILINEAR)
-	x_test_small.append(np.asarray(image))
-
-x_test_small = np.array(x_test_small)
-
-
-print("Successfuly generated appropriate data")
-
-# prepare array for tensorflow
-print(x_train.shape)
-x_train = np.expand_dims(x_train, axis=3)
-x_train_small = np.expand_dims(x_train_small, axis = 3)
-x_test = np.expand_dims(x_test, axis=3)
-x_test_small = np.expand_dims(x_test_small, axis=3)
+# Parameters
+steps_per_epoch = math.floor(len(x_train)/batch_size)
+validation_steps = math.floor(len(x_val)/batch_size) 
 
 # Build model
-input_img = Input(shape=(x_train_small.shape[1], x_train_small.shape[2], 1))  # adapt this if using `channels_first` image data format
+input_img = Input(shape=(41, 101, 1)) 
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-
 
 
 upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 #Train the model
-upsample.fit(x_train_small, x_train,
-                epochs=epochs,
-                batch_size=batch_size,
+upsample.fit_generator(generator = seq_train,
+                steps_per_epoch=steps_per_epoch,
+                validation_data = seq_val,
+                validation_steps = validation_steps,
+                epochs = epochs,
                 shuffle=True,
-                validation_data=(x_test_small, x_test))
+                workers=8,
+                max_queue_size=10,
+                use_multiprocessing = False
+                )
+
+# Save weights
+upsample.save("classic.h5")
 
 # Evaluate
-print(upsample.evaluate(x_test_small, x_test))
-
-#################### Save model
-upsample.save("upclassic.h5")
+print(upsample.evaluate_generator(generator = seq_val, steps=validation_steps, use_multiprocessing=True))
