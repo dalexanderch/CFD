@@ -31,7 +31,7 @@ files = sorted_nicely(files)
 print("Prepping {} big data".format(len(files)))
 for file in tqdm(files):
     data = np.loadtxt(file)
-    data = np.resize(data, (202, 82))
+    data = np.resize(data, (201, 81))
     data = data.transpose()
     np.save(os.path.splitext(file)[0], data)
     os.remove(file)
