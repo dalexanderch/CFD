@@ -6,7 +6,7 @@ import os
 import math
 from keras.layers import Input, UpSampling2D, Conv2D
 from keras.models import Model
-from generator import image_generator
+from sequence import data
 import sys
 
 # Constants
@@ -15,21 +15,13 @@ batch_size = int(sys.argv[2])
 
 # Compute steps per epochs
 path = os.getcwd() + "/small"
-files = [f for f in glob.glob(path + "**/*.dat")]
+files_x = [f for f in glob.glob(path + "**/*.npy")]
+path = os.getcwd() + "/big"
+files_y = [f for f in glob.glob(path + "**/*.npy")]
+steps_per_epoch = math.floor(len(files_x)/batch_size)
 
-# Split into training and validation
-n = math.floor(len(files)/10)
-files_train = files[n+1:-1]
-files_test = files[0:n]
-l1 = len(files_train)
-l2 = len(files_test)
-
-steps_per_epoch = math.floor(l1/batch_size)
-validation_steps = math.floor(l2/batch_size)
-
-# Build generator
-g_train = image_generator(0, l1, 32)
-g_test = image_generator(n+1, l2, 32) 
+# Build Sequence
+seq = data(files_x, files_y, batch_size) 
 
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
@@ -42,13 +34,11 @@ upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error')
 
 #Train the model
-upsample.fit_generator(g_train,
+upsample.fit_generator(seq,
                 steps_per_epoch=steps_per_epoch,
                 epochs = epochs,
                 shuffle=True,
                 workers=8,
                 max_queue_size=10,
-                validation_data = g_test,
-                validation_steps = validation_steps,
                 use_multiprocessing = True
                 )

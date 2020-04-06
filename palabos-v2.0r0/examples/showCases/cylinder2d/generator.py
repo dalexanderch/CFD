@@ -32,9 +32,6 @@ def sorted_nicely( l ):
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
     return sorted(l, key = alphanum_key)
 
-def read(file, width, height):
-    data = np.loadtxt(file)
-    return data
 
 @threadsafe_generator
 def image_generator(start, n, batch_size = 32):
@@ -42,12 +39,12 @@ def image_generator(start, n, batch_size = 32):
     while True:
           # Small
           path = os.getcwd() + "/small"
-          files = [f for f in glob.glob(path + "**/*.dat")]
+          files = [f for f in glob.glob(path + "**/*.npy")]
           files = sorted_nicely(files)
           x_paths  = files[i:i+batch_size]
           # Big
           path = os.getcwd() + "/big"
-          files = [f for f in glob.glob(path + "**/*.dat")]
+          files = [f for f in glob.glob(path + "**/*.npy")]
           files = sorted_nicely(files)   
           y_paths  = files[i:i+batch_size]
           
@@ -57,10 +54,10 @@ def image_generator(start, n, batch_size = 32):
           batch_output = [] 
           
           for file in x_paths:
-              data = read(file, 101, 41)
+              data = np.load(file)
               batch_input+=[data]
           for file in y_paths:
-              data = read(file, 202, 82)
+              data = np.load(file)
               batch_output+=[data]
 
           # Return a tuple of (input, output) to feed the network

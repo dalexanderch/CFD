@@ -20,7 +20,8 @@ for file in tqdm(files):
     data = np.loadtxt(file)
     data = np.resize(data, (101, 41))
     data = data.transpose()
-    np.savetxt(file, data)
+    np.save(os.path.splitext(file)[0], data)
+    os.remove(file)
     
 
 # Load big
@@ -32,4 +33,5 @@ for file in tqdm(files):
     data = np.loadtxt(file)
     data = np.resize(data, (202, 82))
     data = data.transpose()
-    np.savetxt(file, data)
+    np.save(os.path.splitext(file)[0], data)
+    os.remove(file)
