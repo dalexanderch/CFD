@@ -34,6 +34,6 @@ for file in tqdm(files):
     data = np.resize(data, (201, 81))
     data = data.transpose()
     data = np.append(data, np.zeros((1, 201)), axis = 0)
-    data = np.append(data, np.zeros((81, 1)), axis = 1)
+    data = np.append(data, np.zeros((82, 1)), axis = 1)
     np.save(os.path.splitext(file)[0], data)
     os.remove(file)
