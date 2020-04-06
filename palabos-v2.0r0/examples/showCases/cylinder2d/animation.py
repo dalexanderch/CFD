@@ -38,6 +38,7 @@ files = files[0:499]
 data = []
 for file in files:
     tmp = np.load(file)
+    tmp = np.reshape(tmp, (41,101))
     data.append(tmp)
 
 fig = plt.figure()
