@@ -8,6 +8,8 @@ from keras.layers import Input, UpSampling2D, Conv2D
 from keras.models import Model
 from sequence import data
 import sys
+from sklearn.model_selection import train_test_split
+
 
 # Constants
 epochs = int(sys.argv[1])
@@ -18,10 +20,15 @@ path = os.getcwd() + "/small"
 files_x = [f for f in glob.glob(path + "**/*.npy")]
 path = os.getcwd() + "/big"
 files_y = [f for f in glob.glob(path + "**/*.npy")]
-steps_per_epoch = math.floor(len(files_x)/batch_size)
+x_train, x_val, y_train, y_val = train_test_split(files_x, files_y, test_size=0.1)
 
 # Build Sequence
-seq = data(files_x, files_y, batch_size) 
+seq_train = data(x_train, y_train, batch_size)
+seq_val =  data(x_val, y_val, batch_size)
+
+# Parameters
+steps_per_epoch = math.floor(len(x_train)/batch_size)
+validation_steps = math.floor(len(x_val)/batch_size) 
 
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
@@ -34,8 +41,10 @@ upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error')
 
 #Train the model
-upsample.fit_generator(seq,
+upsample.fit_generator(generator = seq_train,
                 steps_per_epoch=steps_per_epoch,
+                validation_data = seq_val,
+                validation_steps = validation_steps,
                 epochs = epochs,
                 shuffle=True,
                 workers=8,
