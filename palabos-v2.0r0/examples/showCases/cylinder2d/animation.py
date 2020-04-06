@@ -40,11 +40,9 @@ for d in data:
     im = plt.imshow(d, animated=True)
     ims.append([im])
 #Show
-fig = plt.figure()
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 ani.save('original.mp4')
-plt.show()
 
 # Load model
 upsample = load_model("classic.h5", custom_objects=dependencies)
@@ -71,7 +69,6 @@ ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
 ani.save('classic.mp4')
-plt.show()
 
 # Load model
 upsample = load_model("model.h5", )
@@ -98,4 +95,3 @@ ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
 ani.save('model.mp4')
-plt.show()
