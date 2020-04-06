@@ -40,5 +40,5 @@ upsample.fit_generator(seq,
                 shuffle=True,
                 workers=8,
                 max_queue_size=10,
-                use_multiprocessing = True
+                use_multiprocessing = False
                 )
