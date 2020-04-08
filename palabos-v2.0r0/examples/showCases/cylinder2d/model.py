@@ -49,17 +49,17 @@ upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
 print(upsample.summary())
-##Train the model
-#upsample.fit_generator(generator = seq_train,
-#                steps_per_epoch=steps_per_epoch,
-#                validation_data = seq_val,
-#                validation_steps = validation_steps,
-#                epochs = epochs,
-#                shuffle=True,
-#                workers=8,
-#                max_queue_size=10,
-#                use_multiprocessing = False
-#                )
+#Train the model
+upsample.fit_generator(generator = seq_train,
+                steps_per_epoch=steps_per_epoch,
+                validation_data = seq_val,
+                validation_steps = validation_steps,
+                epochs = epochs,
+                shuffle=True,
+                workers=8,
+                max_queue_size=10,
+                use_multiprocessing = False
+                )
 
 # Save weights
 upsample.save("model.h5")
