@@ -58,7 +58,7 @@ upsample.fit_generator(generator = seq_train,
                 shuffle=True,
                 workers=8,
                 max_queue_size=10,
-                use_multiprocessing = False
+                use_multiprocessing = True
                 )
 
 # Save weights
