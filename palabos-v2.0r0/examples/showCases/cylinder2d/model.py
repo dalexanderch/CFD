@@ -10,6 +10,7 @@ from sequence import data
 import sys
 from sklearn.model_selection import train_test_split
 from keras import backend as K
+from keras.utils import plot_model
 
 
 # Define our custom metric
@@ -40,7 +41,7 @@ validation_steps = math.floor(len(x_val)/batch_size)
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-x = Conv2D(128, (9, 9), activation='relu', padding='same')(x)
+x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
 # x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
@@ -48,18 +49,20 @@ x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
 
-print(upsample.summary())
-#Train the model
-upsample.fit_generator(generator = seq_train,
-                steps_per_epoch=steps_per_epoch,
-                validation_data = seq_val,
-                validation_steps = validation_steps,
-                epochs = epochs,
-                shuffle=True,
-                workers=8,
-                max_queue_size=10,
-                use_multiprocessing = True
-                )
+# Save the model
+plot_model(upsample,show_shapes=True, to_file='model_large.png')
+
+##Train the model
+#upsample.fit_generator(generator = seq_train,
+#                steps_per_epoch=steps_per_epoch,
+#                validation_data = seq_val,
+#                validation_steps = validation_steps,
+#                epochs = epochs,
+#                shuffle=True,
+#                workers=8,
+#                max_queue_size=10,
+#                use_multiprocessing = True
+#                )
 
 # Save weights
 upsample.save("model.h5")

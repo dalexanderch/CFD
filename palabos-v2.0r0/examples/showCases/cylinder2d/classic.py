@@ -10,7 +10,7 @@ from sequence import data
 import sys
 from sklearn.model_selection import train_test_split
 from keras import backend as K
-
+from keras.utils import plot_model
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
@@ -44,6 +44,9 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 upsample = Model(input_img, x)
 upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
+
+# Save the model
+plot_model(upsample, to_file='classic.png')
 
 #Train the model
 upsample.fit_generator(generator = seq_train,
