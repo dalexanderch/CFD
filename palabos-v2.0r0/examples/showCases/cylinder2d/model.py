@@ -41,7 +41,7 @@ validation_steps = math.floor(len(x_val)/batch_size)
 # Build model
 input_img = Input(shape=(41, 101, 1)) 
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
+x = Conv2D(128, (9, 9), activation='relu', padding='same')(x)
 # x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
