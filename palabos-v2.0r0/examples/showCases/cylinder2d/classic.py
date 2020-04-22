@@ -43,7 +43,7 @@ x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss=PSNR, metrics=["mean_squared_error"])
 
 # Save the model
 plot_model(upsample, to_file='classic.png')
