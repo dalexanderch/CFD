@@ -52,17 +52,17 @@ upsample.compile(optimizer='adadelta', loss='mean_squared_error', metrics=[PSNR]
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
 
-##Train the model
-#upsample.fit_generator(generator = seq_train,
-#                steps_per_epoch=steps_per_epoch,
-#                validation_data = seq_val,
-#                validation_steps = validation_steps,
-#                epochs = epochs,
-#                shuffle=True,
-#                workers=8,
-#                max_queue_size=10,
-#                use_multiprocessing = True
-#                )
+#Train the model
+upsample.fit_generator(generator = seq_train,
+                steps_per_epoch=steps_per_epoch,
+                validation_data = seq_val,
+                validation_steps = validation_steps,
+                epochs = epochs,
+                shuffle=True,
+                workers=8,
+                max_queue_size=10,
+                use_multiprocessing = True
+                )
 
 # Save weights
 upsample.save("model.h5")
