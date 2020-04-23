@@ -11,6 +11,8 @@ import sys
 from sklearn.model_selection import train_test_split
 from keras import backend as K
 from keras.utils import plot_model
+import tensorflow as tf
+
 
 
 # Define our custom metric
@@ -18,7 +20,10 @@ def PSNR(y_true, y_pred):
     max_pixel = 1.0
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
-    
+
+def ssim(y_true, y_pred):
+  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
+  
 # Constants
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
@@ -47,7 +52,7 @@ x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss=PSNR, metrics=["mean_squared_error"])
+upsample.compile(optimizer='adadelta', loss=ssim, metrics=["mean_squared_error"])
 
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
