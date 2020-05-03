@@ -21,8 +21,8 @@ def PSNR(y_true, y_pred):
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
 
-def ssim(y_true, y_pred):
-  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
+#def ssim(y_true, y_pred):
+#  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
   
 # Constants
 epochs = int(sys.argv[1])
@@ -52,7 +52,7 @@ x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss=PSNR)
+upsample.compile(optimizer='adadelta', loss='mean_squared_error')
 
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
