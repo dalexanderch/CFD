@@ -4,7 +4,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import glob
 import os
 import math
-from keras.layers import Input, UpSampling2D, Conv2D
+from keras.layers import Input, UpSampling2D, Conv2D, BatchNormalization
 from keras.models import Model
 from sequence import data
 import sys
@@ -47,12 +47,13 @@ validation_steps = math.floor(len(x_val)/batch_size)
 input_img = Input(shape=(41, 101, 1)) 
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
-# x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
+x = BatchNormalization()
 x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
+x = BatchNormalization()
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss="binary_crossentropy", metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss="mean_squared_error", metrics=[PSNR])
 
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
