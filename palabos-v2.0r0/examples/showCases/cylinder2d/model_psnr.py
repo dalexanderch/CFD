@@ -11,14 +11,13 @@ import sys
 from sklearn.model_selection import train_test_split
 from keras import backend as K
 from keras.utils import plot_model
-import tensorflow as tf
 
 
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
-    return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+    return - 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
 
 #def ssim(y_true, y_pred):
