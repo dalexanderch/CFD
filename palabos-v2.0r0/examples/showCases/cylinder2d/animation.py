@@ -28,7 +28,10 @@ y_true))))
 def SSIMLoss(y_true, y_pred):
   return 1 - tf.reduce_mean(tf.image.ssim(y_true, y_pred, 1.0))
     
-dependencies = {
+dependencies_psnr = {
+     'PSNR': PSNR
+}
+dependencies_ssim = {
      'SSIMLoss': SSIMLoss
 }
 
@@ -109,7 +112,7 @@ dependencies = {
 #ani.save('model.mp4')
 
 # Load model
-upsample = load_model("model_psnr.h5", custom_objects=dependencies )
+upsample = load_model("model_psnr.h5", custom_objects=dependencies_psnr )
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
@@ -136,7 +139,7 @@ ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
 ani.save('model_psnr.mp4')
 
 # Load model
-upsample = load_model("model_ssim.h5", custom_objects=dependencies )
+upsample = load_model("model_ssim.h5", custom_objects=dependencies_ssim )
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
