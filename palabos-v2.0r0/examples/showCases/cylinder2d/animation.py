@@ -9,7 +9,7 @@ import re
 import matplotlib.animation as animation
 from keras import backend as K
 import math
-
+import tensorflow as tf
 
 
 
@@ -25,8 +25,11 @@ def PSNR(y_true, y_pred):
     return 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
     
+def SSIMLoss(y_true, y_pred):
+  return 1 - tf.reduce_mean(tf.image.ssim(y_true, y_pred, 1.0))
+    
 dependencies = {
-     'PSNR': PSNR
+     'SSIMLoss': SSIMLoss
 }
 
 ## Prepare data
