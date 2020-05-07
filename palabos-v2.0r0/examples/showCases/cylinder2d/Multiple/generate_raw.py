@@ -27,6 +27,8 @@ ly = int(sys.argv[7])
 mu, sigma = Re, Variance       # mean and standard deviation
 samples = np.random.normal(mu, sigma, numBatches)
 
+# Generates random positions
+positions = 30 + np.random.randint(0, 31, 100)
 
 
 # Generate small samples
@@ -78,7 +80,7 @@ for index,sample in enumerate(samples):
     start = time.time()
     # run ./cylinder2d
     cmd = "./cylinder2d {} {} {} {} tmp/"
-    cmd = cmd.format(sample,Diameter,lx,ly)
+    cmd = cmd.format(Re,sample,lx,ly)
     os.system(cmd)
 
     # # convert images
