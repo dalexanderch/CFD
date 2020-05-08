@@ -22,8 +22,8 @@ def PSNR(y_true, y_pred):
 y_true))))
 
 def ssim(y_true, y_pred):
-  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
-  
+  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))
+
 # Constants
 epochs = int(sys.argv[1])
 batch_size = int(sys.argv[2])
@@ -41,12 +41,12 @@ seq_val =  data(x_val, y_val, batch_size)
 
 # Parameters
 steps_per_epoch = math.floor(len(x_train)/batch_size)
-validation_steps = math.floor(len(x_val)/batch_size) 
+validation_steps = math.floor(len(x_val)/batch_size)
 
 # Build model
-input_img = Input(shape=(41, 101, 1)) 
+input_img = Input(shape=(41, 101, 1))
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
-x = Conv2D(128, (9, 9), activation='relu', padding='same')(x)
+x = Conv2D(64, (9, 9), activation='relu', padding='same')(x)
 x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
