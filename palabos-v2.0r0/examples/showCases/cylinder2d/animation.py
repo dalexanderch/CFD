@@ -28,91 +28,35 @@ y_true))))
 def SSIMLoss(y_true, y_pred):
   return 1 - tf.reduce_mean(tf.image.ssim(y_true, y_pred, 1.0))
     
-dependencies_psnr = {
+dependencies = {
      'PSNR': PSNR
 }
-dependencies_ssim = {
-     'SSIMLoss': SSIMLoss
-}
 
-## Prepare data
-#path = os.getcwd() + "/big"
-#files = [f for f in glob.glob(path + "**/*.npy")]
-#files = sorted_nicely(files)
-#files = files[0:499]
-#
-#data = []
-#for file in files:
-#    tmp = np.load(file)
-#    tmp = np.reshape(tmp, (82,202))
-#    data.append(tmp)
-#
-#fig = plt.figure()
-#ims = []
-#for d in data:
-#    im = plt.imshow(d, animated=True)
-#    ims.append([im])
-##Show
-#ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
-#                                repeat_delay=1000)
-#ani.save('original.mp4')
-#
-## Load model
-#upsample = load_model("classic.h5", custom_objects=dependencies)
-## Prepare data
-#path = os.getcwd() + "/small"
-#files = [f for f in glob.glob(path + "**/*.npy")]
-#files = sorted_nicely(files)
-#files = files[0:499]
-#
-#data = []
-#for file in files:
-#    tmp = np.load(file)
-#    tmp = np.reshape(tmp, (1,41,101,1))
-#    tmp = upsample.predict(tmp)
-#    tmp = np.reshape(tmp, (82,202))
-#    data.append(tmp)
-#
-#fig = plt.figure()
-#ims = []
-#for d in data:
-#    im = plt.imshow(d, animated=True)
-#    ims.append([im])
-##Show
-#ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
-#                                repeat_delay=1000)
-#
-#ani.save('classic.mp4')
-#
-## Load model
-#upsample = load_model("model.h5", custom_objects=dependencies )
-## Prepare data
-#path = os.getcwd() + "/small"
-#files = [f for f in glob.glob(path + "**/*.npy")]
-#files = sorted_nicely(files)
-#files = files[0:499]
-#
-#data = []
-#for file in files:
-#    tmp = np.load(file)
-#    tmp = np.reshape(tmp, (1,41,101,1))
-#    tmp = upsample.predict(tmp)
-#    tmp = np.reshape(tmp, (82,202))
-#    data.append(tmp)
-#
-#fig = plt.figure()
-#ims = []
-#for d in data:
-#    im = plt.imshow(d, animated=True)
-#    ims.append([im])
-##Show
-#ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
-#                                repeat_delay=1000)
-#
-#ani.save('model.mp4')
+
+# Prepare data
+path = os.getcwd() + "/big"
+files = [f for f in glob.glob(path + "**/*.npy")]
+files = sorted_nicely(files)
+files = files[0:499]
+
+data = []
+for file in files:
+    tmp = np.load(file)
+    tmp = np.reshape(tmp, (82,202))
+    data.append(tmp)
+
+fig = plt.figure()
+ims = []
+for d in data:
+    im = plt.imshow(d, animated=True)
+    ims.append([im])
+#Show
+ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
+                                repeat_delay=1000)
+ani.save('original.mp4')
 
 # Load model
-upsample = load_model("model_psnr.h5", custom_objects=dependencies_psnr )
+upsample = load_model("classic.h5", custom_objects=dependencies)
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
@@ -136,10 +80,10 @@ for d in data:
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
-ani.save('model_psnr.mp4')
+ani.save('classic.mp4')
 
 # Load model
-upsample = load_model("model_ssim.h5", custom_objects=dependencies_ssim )
+upsample = load_model("model.h5", custom_objects=dependencies )
 # Prepare data
 path = os.getcwd() + "/small"
 files = [f for f in glob.glob(path + "**/*.npy")]
@@ -163,4 +107,5 @@ for d in data:
 ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
                                 repeat_delay=1000)
 
-ani.save('model_ssim.mp4')
+ani.save('model.mp4')
+
