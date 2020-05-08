@@ -39,15 +39,15 @@ seq_val =  data(x_val, y_val, batch_size)
 
 # Parameters
 steps_per_epoch = math.floor(len(x_train)/batch_size)
-validation_steps = math.floor(len(x_val)/batch_size) 
+validation_steps = math.floor(len(x_val)/batch_size)
 
 # Build model
-input_img = Input(shape=(41, 101, 1)) 
+input_img = Input(shape=(41, 101, 1))
 x = UpSampling2D((2, 2), interpolation='bilinear')(input_img)
 
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss=SSIMLoss, metrics=["mean_squared_error"])
+upsample.compile(optimizer='adadelta', loss="mean_squared_error", metrics=[PSNR])
 
 # Save the model
 plot_model(upsample, to_file='classic.png')
