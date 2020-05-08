@@ -36,7 +36,7 @@ for index,sample in enumerate(samples):
     start = time.time()
 
     # run ./cylinder2d
-    cmd = "./cylinder2d {} {} {} {} tmp/"
+    cmd = "./cylinder2d {} {} {} {} {} tmp/"
     cmd = cmd.format(sample,Diameter,positions[index],lx,ly)
     os.system(cmd)
 
@@ -78,7 +78,7 @@ for index,sample in enumerate(samples):
     # time
     start = time.time()
     # run ./cylinder2d
-    cmd = "./cylinder2d {} {} {} {} tmp/"
+    cmd = "./cylinder2d {} {} {} {} {} tmp/"
     cmd = cmd.format(sample,Diameter,positions[index],lx,ly)
     os.system(cmd)
 
