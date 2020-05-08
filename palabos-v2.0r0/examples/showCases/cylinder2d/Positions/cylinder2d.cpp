@@ -209,7 +209,7 @@ int main(int argc, char* argv[]) {
     // Gather arguments
     double Re = atof(argv[1]);
     plint diameter = atoi(argv[2]);
-    plint pos = atoi(argv[3])
+    plint pos = atoi(argv[3]);
     double lx = atof(argv[4]);
     double ly = atof(argv[5]);
     string dir = argv[6];
