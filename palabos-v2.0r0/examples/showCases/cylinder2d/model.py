@@ -22,7 +22,7 @@ def PSNR(y_true, y_pred):
 y_true))))
 
 def ssim(y_true, y_pred):
-  return tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
+  return - tf.reduce_mean(tf.image.ssim(y_true, y_pred, 2.0))  
   
 # Constants
 epochs = int(sys.argv[1])
