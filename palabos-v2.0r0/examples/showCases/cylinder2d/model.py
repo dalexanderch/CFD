@@ -51,7 +51,7 @@ x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss="PSNR", metrics=[PSNR])
+upsample.compile(optimizer='adadelta', loss=PSNR, metrics=[PSNR])
 
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
