@@ -23,6 +23,12 @@ import tensorflow as tf
 def SSIMLoss(y_true, y_pred):
   return 1 - tf.reduce_mean(tf.image.ssim(y_true, y_pred, 1.0))
 
+# Define our custom metric
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return - 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+y_true))))
+    
 
 # Constants
 epochs = int(sys.argv[1])
@@ -52,7 +58,7 @@ x = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
 x = Conv2D(1, (3, 3), activation='relu', padding='same')(x)
 
 upsample = Model(input_img, x)
-upsample.compile(optimizer='adadelta', loss=SSIMLoss, metrics=['mean_squared_error'])
+upsample.compile(optimizer='adadelta', loss=SSIMLoss, metrics=['mean_squared_error', PSNR])
 
 # Save the model
 plot_model(upsample,show_shapes=True, to_file='model_large.png')
