@@ -11,8 +11,7 @@ import sys
 from sklearn.model_selection import train_test_split
 from keras import backend as K
 from keras.utils import plot_model
-
-
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 # Define our custom metric
 def PSNR(y_true, y_pred):
