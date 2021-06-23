@@ -26,9 +26,9 @@ def SSIMLoss(y_true, y_pred):
 # Define our custom metric
 def PSNR(y_true, y_pred):
     max_pixel = 1.0
-    return - 10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
+    return  10.0 * (1.0 / math.log(10)) * K.log((max_pixel ** 2) / (K.mean(K.square(y_pred -
 y_true))))
-    
+
 
 # Constants
 epochs = int(sys.argv[1])
